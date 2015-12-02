@@ -22,16 +22,16 @@ public class MyFrame extends JFrame {
 	public MyFrame() {
 		super("NoteBook GUI");
 		
-	    try
-	    {
-	        //设置本属性将改变窗口边框样式定义
-	        BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
-	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-	    }
-	    catch(Exception e)
-	    {
-	        //TODO exception
-	    }
+//	    try
+//	    {
+//	        //设置本属性将改变窗口边框样式定义
+//	        BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
+//	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//	    }
+//	    catch(Exception e)
+//	    {
+//	        //TODO exception
+//	    }
 		getContentPane().setLayout(new GridLayout(1, 2));
 		
 		//add left and right parts
@@ -40,6 +40,7 @@ public class MyFrame extends JFrame {
 		
 		setSize(1200, 650);
 		setVisible(true);
+		System.out.println("set to true");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
