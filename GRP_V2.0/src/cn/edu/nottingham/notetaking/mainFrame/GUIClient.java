@@ -55,6 +55,16 @@ public class GUIClient {
 //					e.printStackTrace();
 //				}
 				
+			    try
+			    {
+			        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+			    }
+			    catch(Exception e)
+			    {
+			        //TODO exception
+			    }
+//			    
+				
 				new MyFrame();
 			}
 		});
