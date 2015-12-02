@@ -58,6 +58,7 @@ public class GUIClient {
 			    try
 			    {
 			        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+			        UIManager.put("RootPane.setupButtonVisible", false); // close "set up" button
 			    }
 			    catch(Exception e)
 			    {

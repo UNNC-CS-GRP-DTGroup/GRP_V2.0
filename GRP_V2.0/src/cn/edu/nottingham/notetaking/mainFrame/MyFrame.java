@@ -16,6 +16,7 @@ import cn.edu.nottingham.notetaking.rightPart.RightPane;
  * 
  */
 public class MyFrame extends JFrame {
+	JPanel outPanel;
 
 	private static final long serialVersionUID = 66563949539476644L;
 
@@ -24,7 +25,6 @@ public class MyFrame extends JFrame {
 		
 //	    try
 //	    {
-//	        //设置本属性将改变窗口边框样式定义
 //	        BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
 //	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
 //	    }
@@ -32,11 +32,13 @@ public class MyFrame extends JFrame {
 //	    {
 //	        //TODO exception
 //	    }
-		getContentPane().setLayout(new GridLayout(1, 2));
+		outPanel = new JPanel();
+		outPanel.setLayout(new GridLayout(1, 2));
+		getContentPane().add(outPanel);
 		
 		//add left and right parts
-		getContentPane().add(new LeftPanel().getLeft());
-		getContentPane().add(new RightPane());
+		outPanel.add(new LeftPanel().getLeft());
+		outPanel.add(new RightPane());
 		
 		setSize(1200, 650);
 		setVisible(true);
