@@ -36,6 +36,8 @@ public class MyFrame extends JFrame {
 		outPanel.setLayout(new GridLayout(1, 2));
 		getContentPane().add(outPanel);
 		
+		
+		
 		//add left and right parts
 		outPanel.add(new LeftPanel().getLeft());
 		outPanel.add(new RightPane());
