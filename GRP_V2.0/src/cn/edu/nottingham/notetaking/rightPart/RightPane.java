@@ -1,10 +1,13 @@
 package cn.edu.nottingham.notetaking.rightPart;
 
+import java.awt.Container;
+
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import cn.edu.nottingham.notetaking.rightPart.util.AudioPanel;
 import cn.edu.nottingham.notetaking.rightPart.util.CameraPanel;
+import cn.edu.nottingham.notetaking.rightPart.util.EmailPane;
 import cn.edu.nottingham.notetaking.rightPart.util.ImagePane;
 import cn.edu.nottingham.notetaking.rightPart.util.OfficePane;
 import cn.edu.nottingham.notetaking.rightPart.util.PdfPane;
@@ -26,7 +29,7 @@ public class RightPane extends JTabbedPane {
     private JTabbedPane imagePane;
     private JTabbedPane videopanel;
     private JPanel cameraPanel;
-    
+    private JTabbedPane emailPane;
 
     /**
      * constructor
@@ -41,6 +44,8 @@ public class RightPane extends JTabbedPane {
 	imagePane = new ImagePane();
 	videopanel = new VideoPanel();
 	cameraPanel = new CameraPanel();
+	emailPane = new EmailPane();
+	
 	
 
 	addTab("Audio", audioPanel);
@@ -50,6 +55,7 @@ public class RightPane extends JTabbedPane {
 	addTab("Image", imagePane);
 	addTab("Video", videopanel);
 	addTab("Camera", cameraPanel);
+	addTab("Email", emailPane);
 
     }
 }
