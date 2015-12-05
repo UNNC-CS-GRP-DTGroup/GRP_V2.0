@@ -23,15 +23,7 @@ public class MyFrame extends JFrame {
 	public MyFrame() {
 		super("NoteBook GUI");
 		
-//	    try
-//	    {
-//	        BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
-//	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-//	    }
-//	    catch(Exception e)
-//	    {
-//	        //TODO exception
-//	    }
+		System.setProperty("sun.java2d.noddraw", "true");
 		outPanel = new JPanel();
 		outPanel.setLayout(new GridLayout(1, 2));
 		getContentPane().add(outPanel);

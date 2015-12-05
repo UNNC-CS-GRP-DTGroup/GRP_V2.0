@@ -24,6 +24,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import com.edu.nottingham.notetaking.MyJTextField;
+
 public class EmailPane extends JTabbedPane implements ActionListener {
 	/**
 	 * 
@@ -45,15 +47,15 @@ public class EmailPane extends JTabbedPane implements ActionListener {
 	JLabel subject = new JLabel("Subject");
 	JLabel attachment = new JLabel("Attachment");
 	
-	JTextField smtp1 = new JTextField();
-	JTextField username1 = new JTextField();
-	JTextField password1 = new JTextField();
-	JTextField from1 = new JTextField();
-	JTextField to1 = new JTextField();
-	JTextField cc1 = new JTextField();
-	JTextField subject1 = new JTextField();
-	JTextField attachment1 = new JTextField();
-	JTextArea content = new JTextArea();
+	MyJTextField smtp1 = new MyJTextField();
+	MyJTextField username1 = new MyJTextField();
+	MyJTextField password1 = new MyJTextField();
+	MyJTextField from1 = new MyJTextField();
+	MyJTextField to1 = new MyJTextField();
+	MyJTextField cc1 = new MyJTextField();
+	MyJTextField subject1 = new MyJTextField();
+	MyJTextField attachment1 = new MyJTextField();
+	MyJTextField content = new MyJTextField();
 
 	
 	String attach;
