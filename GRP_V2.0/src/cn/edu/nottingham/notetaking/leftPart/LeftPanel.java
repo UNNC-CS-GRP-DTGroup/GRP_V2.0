@@ -35,7 +35,10 @@ public class LeftPanel {
     JTextArea area;
     JTree tree;
     String title;
-    final MyTextPane tp;
+    
+//    final MyTextPane tp;
+    JRichTextEditor jrte;
+    
     TitledBorder tb;
     DefaultMutableTreeNode child, selected, root;
     DefaultTreeModel model;
@@ -136,7 +139,7 @@ public class LeftPanel {
 			model.insertNodeInto(child, selected, 0);
 			path = path + File.separator + content;
 			File file = new File(path);
-			tp.setText("");
+//			tp.setText("");
 			saveFile(file);
 			CsvBuilder.setNotePath(content);
 		    } else if (selectedValue == "NoteBook") {
@@ -182,7 +185,7 @@ public class LeftPanel {
 				model.removeNodeFromParent(selected);
 			    }
 
-			    tp.setText("");
+//			    tp.setText("");
 			}
 
 		    } catch (Exception exp) {
@@ -266,65 +269,67 @@ public class LeftPanel {
 	});
 
 	// lefthand side second part - TextPane
-	tp = new MyTextPane();
+//	tp = new MyTextPane();
+	jrte = new JRichTextEditor();
 
-	// respond hyperlink event in textpane
-	tp.addHyperlinkListener(new HyperlinkListener() {
-	    @Override
-	    public void hyperlinkUpdate(HyperlinkEvent e) {
-		if (e.getEventType() != HyperlinkEvent.EventType.ACTIVATED)
-		    return;
-
-		URL linkUrl = e.getURL();
-		if (linkUrl != null) {
-		    try {
-			Desktop.getDesktop().browse(linkUrl.toURI());
-		    } catch (URISyntaxException | IOException e1) {
-			JOptionPane.showMessageDialog(null,
-				"Hperlink  is wrong", "Can not open the link:"
-					+ linkUrl + "\n:" + e1,
-				JOptionPane.ERROR_MESSAGE);
-		    }
-		} else {
-		    JOptionPane
-			    .showMessageDialog(
-				    null,
-				    "Hperlink is wrong",
-				    "Hyperlink info is not full:"
-					    + e.getDescription()
-					    + "\n please make sure the infomation����http://,mailto:",
-				    JOptionPane.ERROR_MESSAGE);
-		}
-	    }
-
-	});
+//	// respond hyperlink event in textpane
+//	tp.addHyperlinkListener(new HyperlinkListener() {
+//	    @Override
+//	    public void hyperlinkUpdate(HyperlinkEvent e) {
+//		if (e.getEventType() != HyperlinkEvent.EventType.ACTIVATED)
+//		    return;
+//
+//		URL linkUrl = e.getURL();
+//		if (linkUrl != null) {
+//		    try {
+//			Desktop.getDesktop().browse(linkUrl.toURI());
+//		    } catch (URISyntaxException | IOException e1) {
+//			JOptionPane.showMessageDialog(null,
+//				"Hperlink  is wrong", "Can not open the link:"
+//					+ linkUrl + "\n:" + e1,
+//				JOptionPane.ERROR_MESSAGE);
+//		    }
+//		} else {
+//		    JOptionPane
+//			    .showMessageDialog(
+//				    null,
+//				    "Hperlink is wrong",
+//				    "Hyperlink info is not full:"
+//					    + e.getDescription()
+//					    + "\n please make sure the infomation����http://,mailto:",
+//				    JOptionPane.ERROR_MESSAGE);
+//		}
+//	    }
+//
+//	});
 
 	JPanel panel = new JPanel();
 	JButton btn1 = new JButton("EDIT");
 	JButton btn2 = new JButton("LINK");
 	// start edit mode
-	btn1.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		tp.setEditable(true);
-	    }
-	});
-	// start link mode
-	btn2.addMouseListener(new MouseAdapter() {
-	    @Override
-	    public void mouseClicked(MouseEvent e) {
-		tp.setEditable(false);
-	    }
-	});
+//	btn1.addMouseListener(new MouseAdapter() {
+//	    @Override
+//	    public void mouseClicked(MouseEvent e) {
+//		tp.setEditable(true);
+//	    }
+//	});
+//	// start link mode
+//	btn2.addMouseListener(new MouseAdapter() {
+//	    @Override
+//	    public void mouseClicked(MouseEvent e) {
+//		tp.setEditable(false);
+//	    }
+//	});
 
 	// text pane layout setting
-	tp.setEditable(true);
-	JScrollPane textScrollPane = new JScrollPane(tp);
-	textScrollPane
-		.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+//	tp.setEditable(true);
+//	JScrollPane textScrollPane = new JScrollPane(tp);
+//	textScrollPane
+//		.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	text.setLayout(new BorderLayout());
 	text.add(panel, BorderLayout.NORTH);
-	text.add(textScrollPane, BorderLayout.CENTER);
+//	text.add(textScrollPane, BorderLayout.CENTER);
+	text.add(jrte, BorderLayout.CENTER);
 	GridLayout panellayout = new GridLayout(1, 2);
 	panel.setLayout(panellayout);
 
@@ -447,19 +452,19 @@ public class LeftPanel {
     public void saveFile(File file) {
 	try {
 
-	    if (!file.exists()) {
-		file.createNewFile();
-	    }
-
-	    OutputStream os = new FileOutputStream(file.getPath());
-	    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
-	    String[] linestring = tp.getText().split("\n");
-	    for (String linestring1 : linestring) {
-		bw.write(linestring1);
-		bw.newLine();
-		bw.flush();
-	    }
-	    bw.close();
+//	    if (!file.exists()) {
+//		file.createNewFile();
+//	    }
+//
+//	    OutputStream os = new FileOutputStream(file.getPath());
+//	    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
+////	    String[] linestring = tp.getText().split("\n");
+//	    for (String linestring1 : linestring) {
+//		bw.write(linestring1);
+//		bw.newLine();
+//		bw.flush();
+//	    }
+//	    bw.close();
 	} catch (Exception exp) {
 	    JOptionPane.showMessageDialog(leftside, "Invalid Path.", "Error",
 		    JOptionPane.ERROR_MESSAGE);
@@ -469,27 +474,27 @@ public class LeftPanel {
     // function for open the file from
     public void openFile() {
 
-	String path = tree2Path(tree.getSelectionPath().toString());
-	if (!path.endsWith(".not")) {
-	    return;
-	}
-	StringBuilder not = new StringBuilder();
-	try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-	    String data = br.readLine();
-	    while (data != null) {
-		not.append(data);
-		not.append("\n");
-		data = br.readLine();
-	    }
-	    tp.setText(not.toString());
-	    CsvBuilder.setNotePath(path);
-	}
-
-	catch (Exception exp) {
-	    JOptionPane.showMessageDialog(leftside, "Can not find file.",
-		    "Error", JOptionPane.ERROR_MESSAGE);
-
-	}
+//	String path = tree2Path(tree.getSelectionPath().toString());
+//	if (!path.endsWith(".not")) {
+//	    return;
+//	}
+//	StringBuilder not = new StringBuilder();
+//	try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+//	    String data = br.readLine();
+//	    while (data != null) {
+//		not.append(data);
+//		not.append("\n");
+//		data = br.readLine();
+//	    }
+//	    tp.setText(not.toString());
+//	    CsvBuilder.setNotePath(path);
+//	}
+//
+//	catch (Exception exp) {
+//	    JOptionPane.showMessageDialog(leftside, "Can not find file.",
+//		    "Error", JOptionPane.ERROR_MESSAGE);
+//
+//	}
     }
     
     public void openMenu(MouseEvent e){
