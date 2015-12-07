@@ -20,7 +20,12 @@ public class MyJTextField extends JTextField {
     private static final long serialVersionUID = 1L;
     private BufferedImage buffer = null;
 
-    @Override public void paintComponent(Graphics g) {
+    public MyJTextField(int columns) {
+    	super(null, null, columns);
+	}
+    
+    @Override 
+    public void paintComponent(Graphics g) {
         Component window = this.getTopLevelAncestor();
         if (window instanceof Window && !((Window)window).isOpaque()) {
             // This is a translucent window, so we need to draw to a buffer
