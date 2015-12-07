@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,14 +29,14 @@ import javax.swing.ScrollPaneConstants;
 
 import com.edu.nottingham.notetaking.MyJTextField;
 
-public class EmailPane extends JTabbedPane implements ActionListener {
+public class EmailPane extends JDialog implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	JFrame frame = new JFrame();
-	private static FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
+	static JFrame tempFrame = null;
+	private FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
 	JPanel outPanel = new JPanel(new GridLayout(1,1));
 	JPanel jp_smtp = new JPanel(new BorderLayout());
 	JPanel jp_username = new JPanel(new BorderLayout());
@@ -91,7 +92,9 @@ public class EmailPane extends JTabbedPane implements ActionListener {
 	
 	
 	public EmailPane(){
-		frame.getContentPane().add(outPanel);
+		super(tempFrame, "Email");
+		
+		this.add(outPanel);
 		outPanel.setLayout(fl);
 		
 		jp_smtp.add(smtp,BorderLayout.WEST);
@@ -127,7 +130,7 @@ public class EmailPane extends JTabbedPane implements ActionListener {
 		jp_attachment.add(choose, BorderLayout.EAST);
 		outPanel.add(jp_attachment);
 		
-		jp_content.add(scroll_content, CENTER);
+		jp_content.add(scroll_content, BorderLayout.CENTER);
 		scroll_content.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll_content.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		content.setLineWrap(true);
@@ -205,11 +208,11 @@ public class EmailPane extends JTabbedPane implements ActionListener {
 		});
 		
 		
-		frame.setLocation(x, y);
-		frame.setSize(width,height);
-		frame.setResizable(false);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocation(x, y);
+		this.setSize(width,height);
+		this.setResizable(false);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	public void actionPerformed(ActionEvent e){
