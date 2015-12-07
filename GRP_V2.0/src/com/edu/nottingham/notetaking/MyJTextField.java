@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 public class MyJTextField extends JTextField {
     private static final long serialVersionUID = 1L;
     private BufferedImage buffer = null;
+    
+    public MyJTextField(){}
 
     public MyJTextField(int columns) {
     	super(null, null, columns);

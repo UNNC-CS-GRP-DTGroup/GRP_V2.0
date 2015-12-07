@@ -112,7 +112,7 @@ public class GUIClient {
 			        //TODO exception
 			    }
 //			    
-			    System.setProperty("sun.java2d.noddraw", "true");
+			    // System.setProperty("sun.java2d.noddraw", "true");
 				new MyFrame();
 			}
 		});

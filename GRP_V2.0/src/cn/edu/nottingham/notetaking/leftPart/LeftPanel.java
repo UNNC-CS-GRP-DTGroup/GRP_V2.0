@@ -302,6 +302,7 @@ public class LeftPanel {
 	JPanel panel = new JPanel();
 	JButton btn1 = new JButton("EDIT");
 	JButton btn2 = new JButton("LINK");
+	JButton btn3 = new JButton("Email");
 	// start edit mode
 	btn1.addMouseListener(new MouseAdapter() {
 	    @Override
@@ -331,6 +332,7 @@ public class LeftPanel {
 	// add buttons to panel
 	panel.add(btn1);
 	panel.add(btn2);
+	panel.add(btn3);
 
 	// save button and its settings
 	JPanel button = new JPanel();
