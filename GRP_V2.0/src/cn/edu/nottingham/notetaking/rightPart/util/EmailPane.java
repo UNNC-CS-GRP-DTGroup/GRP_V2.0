@@ -60,7 +60,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	
 	MyJTextField smtp1 = new MyJTextField(30);
 	MyJTextField username1 = new MyJTextField(30);
-	MyJTextField password1 = new MyJTextField(30);
+	JPasswordField password1 = new JPasswordField(30);
 	MyJTextField from1 = new MyJTextField(30);
 	MyJTextField to1 = new MyJTextField(30);
 	MyJTextField cc1 = new MyJTextField(30);
