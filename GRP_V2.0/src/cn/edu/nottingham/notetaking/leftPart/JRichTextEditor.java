@@ -160,16 +160,18 @@ public class JRichTextEditor extends JPanel{
 			private MarkerProvider				_provider2;
 			private XMLNoteTranslator 			_translator;
 //			private JInternalFrame			  	_frame;
-			private JMenuBar					_menu;
+			private JMenuBar						_menu;
 			private JXMLNoteEditor				_editor;
 			private JXMLNoteEditor				_viewer;
 			private Preferences					_preferences=Preferences.userNodeForPackage(JRichTextEditor.class);
-			private File						_saveFile=new File("/tmp/xmlnote.jxmlnote");
+
+			private	String 						windowsPath = "Z:\\JRichTextEditor files\\xmlnote.jxmlnote";
+			private String						macPath = "/tmp/xmlnote.jxmlnote";
+			private String						homePath = System.getProperty("user.home");
+			private File						_saveFile = new File(windowsPath);
+			
 			private boolean						_canceled;
-			
-			
-			private JFrame						realFrame;
-			private JDesktopPane				jdpDesktop;
+			private JFileChooser 				chooser;
 			
 			private float convertToPixels(int pt) {
 				return (float) DPIAdjuster.adjustPointSize((double) pt);
@@ -179,9 +181,10 @@ public class JRichTextEditor extends JPanel{
 				final PdfReport pdf;
 				final XMLNoteToReport report;
 				try {
-
-					pdf = new PdfReport(new File("/tmp/fontcache.dat"));
-					final File reportFile=new File("/tmp/pdf_output.pdf");
+//					pdf = new PdfReport(new File("/tmp/fontcache.dat"));
+					pdf = new PdfReport(new File(homePath + "\\fontcache.dat"));
+//					final File reportFile=new File("/tmp/pdf_output.pdf");
+					final File reportFile=new File(homePath + "\\pdf_output.pdf");
 					pdf.beginReport(reportFile);
 					
 					report=new XMLNoteToReport(pdf);
@@ -256,7 +259,8 @@ public class JRichTextEditor extends JPanel{
 				createPdf();
 				if (_canceled) { return; }
 				try {
-					PdfViewer.showPdfViewer(JRichTextEditor.this, "View resulting pdf", new File("/tmp/pdf_output.pdf"),
+//					PdfViewer.showPdfViewer(JRichTextEditor.this, "View resulting pdf", new File("/tmp/pdf_output.pdf"),
+					PdfViewer.showPdfViewer(JRichTextEditor.this, "View resulting pdf", new File(homePath + "\\pdf_output.pdf"),
 											new XMLNotePreferences() {
 												public String getString(String key,String _default) { 
 													return _preferences.get(key,_default); 
@@ -323,13 +327,13 @@ public class JRichTextEditor extends JPanel{
 				String cmd = e.getActionCommand();
 				System.out.println("command: " + cmd);
 				if (cmd.equals("prefs")) {
-//					JDialog dlg=new JDialog(_frame,"Style preferences",true);
+					JDialog dlg = new JDialog((JFrame) null, "Style preferences",true);
 //					dlg.setLocationRelativeTo(_frame);
-//					JXMLNoteStylePane pane=new JXMLNoteStylePane(_document.getStyles());
-//					dlg.add(pane);
-//					dlg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//					dlg.pack();
-//					dlg.setVisible(true);
+					JXMLNoteStylePane pane=new JXMLNoteStylePane(_document.getStyles());
+					dlg.add(pane);
+					dlg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dlg.pack();
+					dlg.setVisible(true);
 				} else if (cmd.equals("mark")) {
 					_id += 1;
 					boolean le=_notes.getXMLNoteDoc().setLongEdit(true);
@@ -492,10 +496,13 @@ public class JRichTextEditor extends JPanel{
 					String xml=XMLNoteDocument.emptyXML();
 					try {
 						File lastpath=new File(_preferences.get("lastpath", "."));
-						JFileChooser chooser = new JFileChooser(lastpath);
+//						File lastpath = new File("Z:\\JRichTextEditor files\\");
+//						File lastpath = new File(System.getProperty("user.home"));
+						chooser = new JFileChooser();
 						FileNameExtensionFilter filter = new FileNameExtensionFilter("XMLNote files", "jxmlnote");
 						chooser.setFileFilter(filter);
 						int returnVal = chooser.showOpenDialog(JRichTextEditor.this);
+//						int returnVal = chooser.showOpenDialog(null);
 						if (returnVal == JFileChooser.APPROVE_OPTION) {
 							lastpath=chooser.getCurrentDirectory();
 							_preferences.put("lastpath", lastpath.getAbsolutePath());
@@ -872,7 +879,8 @@ public class JRichTextEditor extends JPanel{
 				_menu.add(menu);
 
 				(JRichTextEditor.this).setLayout(new BorderLayout());
-				(JRichTextEditor.this).add(menu, BorderLayout.NORTH);
+				menu.setPopupMenuVisible(true);
+				(JRichTextEditor.this).add(_menu, BorderLayout.NORTH);
 //				(JRichTextEditor.this).setJMenuBar(_menu);
 				_panel.add(_bar,BorderLayout.NORTH);
 				// _editor.setPreferredSize(new Dimension(700,700));

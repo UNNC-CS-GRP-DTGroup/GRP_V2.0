@@ -481,6 +481,9 @@ public class JXMLNoteDemo {
 					String xml=XMLNoteDocument.emptyXML();
 					try {
 						File lastpath=new File(_preferences.get("lastpath", "."));
+//						File lastpath=new File(".");
+						System.out.println("Here: " + _preferences.get("lastpath", "."));
+						
 						JFileChooser chooser = new JFileChooser(lastpath);
 						FileNameExtensionFilter filter = new FileNameExtensionFilter("XMLNote files", "jxmlnote");
 						chooser.setFileFilter(filter);
@@ -488,6 +491,7 @@ public class JXMLNoteDemo {
 						if (returnVal == JFileChooser.APPROVE_OPTION) {
 							lastpath=chooser.getCurrentDirectory();
 							_preferences.put("lastpath", lastpath.getAbsolutePath());
+
 							File file = chooser.getSelectedFile();
 							String fl = file.getAbsolutePath();
 							if (!fl.endsWith(".jxmlnote")) {
