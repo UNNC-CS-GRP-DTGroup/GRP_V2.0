@@ -48,7 +48,7 @@ public class AudioPanel extends JPanel{
     private JPanel audioPanel;
     private JFrame jframe;
 
-    private static int counter=0;
+    private static int counter = 0;
     /**
      * constructor
      *
@@ -62,7 +62,6 @@ public class AudioPanel extends JPanel{
 	add(top, BorderLayout.NORTH);
 
 	JButton captureBtn = new JButton("record");
-//	JButton captureBtn = new GradientButton("Gradient Button",Theme.GRADIENT_RED_THEME,ButtonType.BUTTON_ROUNDED_RECTANGLUR);
 	JButton stopBtn = new JButton("stop");
 	JButton playBtn = new JButton("play");
 	JButton saveBtn = new JButton("save");
@@ -85,15 +84,14 @@ public class AudioPanel extends JPanel{
 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		captureBtn.setEnabled(false);
-		stopBtn.setEnabled(true);
-		playBtn.setEnabled(false);
-		saveBtn.setEnabled(false);
-		saveasBtn.setEnabled(false);
-                openBtn.setEnabled(false);
-                
-                counter++;
-		capture();
+			captureBtn.setEnabled(false);
+			stopBtn.setEnabled(true);
+			playBtn.setEnabled(false);
+			saveBtn.setEnabled(false);
+			saveasBtn.setEnabled(false);
+	        openBtn.setEnabled(false);
+	        counter++;
+			capture();
 	    }
 	});
 	top.add(captureBtn);
@@ -102,14 +100,13 @@ public class AudioPanel extends JPanel{
 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		captureBtn.setEnabled(true);
-		stopBtn.setEnabled(false);
-		playBtn.setEnabled(true);
-		saveBtn.setEnabled(true);
-		saveasBtn.setEnabled(true);
-                openBtn.setEnabled(true);
-                
-		stop();
+			captureBtn.setEnabled(true);
+			stopBtn.setEnabled(false);
+			playBtn.setEnabled(true);
+			saveBtn.setEnabled(true);
+			saveasBtn.setEnabled(true);
+	        openBtn.setEnabled(true);  
+			stop();
 	    }
 	});
 	top.add(stopBtn);
@@ -118,8 +115,7 @@ public class AudioPanel extends JPanel{
 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-
-		play();
+	    	play();
 	    }
 	});
 	top.add(playBtn);
@@ -128,8 +124,7 @@ public class AudioPanel extends JPanel{
 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-
-		save();
+	    	save();
 	    }
 	});
 	top.add(saveBtn);
@@ -138,8 +133,7 @@ public class AudioPanel extends JPanel{
 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-
-		saveas();
+	    	saveas();
 	    }
 	});
 	top.add(saveasBtn);
@@ -149,115 +143,106 @@ public class AudioPanel extends JPanel{
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 
-		// get frame which contains imagePane
-		Component p = audioPanel.getParent();
-
-		while (p != null && !(p instanceof JFrame)) {
-		    p = p.getParent();
-		}
-		if (p != null) {
-		    jframe = (JFrame) p;
-		}
-
-		FileDialog filedialog = new FileDialog(jframe, "open",
-			FileDialog.LOAD);
-		filedialog.setVisible(true);
-
-		// get path
-		String directory = filedialog.getDirectory();
-		String fileName = filedialog.getFile();
-
-		if (fileName == null)
-		    return;
-
-		String path = directory + fileName;
-
-		Thread t;
-		t = new Thread(new Runnable() {
-
-		    private AudioFormat audioFormat = null;
-		    private SourceDataLine sourceDataLine = null;
-		    private DataLine.Info dataLine_info = null;
-		    private String file = path;
-		    private AudioInputStream audioInputStream = null;
-
-		    @Override
-		    public void run() {
-			try {
-			    audioInputStream = AudioSystem
-				    .getAudioInputStream(new File(file));
-			    audioFormat = audioInputStream.getFormat();
-			    dataLine_info = new DataLine.Info(
-				    SourceDataLine.class, audioFormat);
-			    try {
-				sourceDataLine = (SourceDataLine) AudioSystem
-					.getLine(dataLine_info);
-			    } catch (LineUnavailableException ex) {
-				Logger.getLogger(AudioPanel.class.getName())
-					.log(Level.SEVERE, null, ex);
-			    }
-
-			    byte[] b = new byte[1024];
-			    int len = 0;
-			    sourceDataLine.open(audioFormat, 1024);
-			    sourceDataLine.start();
-			    while ((len = audioInputStream.read(b)) > 0) {
-				sourceDataLine.write(b, 0, len);
-			    }
-			    audioInputStream.close();
-			    sourceDataLine.drain();
-			    sourceDataLine.close();
-
-			} catch (UnsupportedAudioFileException ex) {
-			    Logger.getLogger(AudioPanel.class.getName()).log(
-				    Level.SEVERE, null, ex);
-			} catch (IOException ex) {
-			    Logger.getLogger(AudioPanel.class.getName()).log(
-				    Level.SEVERE, null, ex);
-			} catch (LineUnavailableException ex) {
-			    Logger.getLogger(AudioPanel.class.getName()).log(
-				    Level.SEVERE, null, ex);
+			// get frame which contains imagePane
+			Component p = audioPanel.getParent();
+	
+			while (p != null && !(p instanceof JFrame)) {
+			    p = p.getParent();
 			}
-
+			if (p != null) {
+			    jframe = (JFrame) p;
+			}
+	
+			FileDialog filedialog = new FileDialog(jframe, "open",
+				FileDialog.LOAD);
+			filedialog.setVisible(true);
+	
+			// get path
+			String directory = filedialog.getDirectory();
+			String fileName = filedialog.getFile();
+	
+			if (fileName == null)
+			    return;
+	
+			String path = directory + fileName;
+	
+			Thread t;
+			t = new Thread(new Runnable() {
+			    private AudioFormat audioFormat = null;
+			    private SourceDataLine sourceDataLine = null;
+			    private DataLine.Info dataLine_info = null;
+			    private String file = path;
+			    private AudioInputStream audioInputStream = null;
+	
+			    @Override
+			    public void run() {
+				try {
+				    audioInputStream = AudioSystem
+					    .getAudioInputStream(new File(file));
+				    audioFormat = audioInputStream.getFormat();
+				    dataLine_info = new DataLine.Info(
+					    SourceDataLine.class, audioFormat);
+				    try {
+						sourceDataLine = (SourceDataLine) AudioSystem.getLine(dataLine_info);
+				    } catch (LineUnavailableException ex) {
+					Logger.getLogger(AudioPanel.class.getName()).log(Level.SEVERE, null, ex);
+				    }
+	
+				    byte[] b = new byte[1024];
+				    int len = 0;
+				    sourceDataLine.open(audioFormat, 1024);
+				    sourceDataLine.start();
+				    while ((len = audioInputStream.read(b)) > 0) {
+				    	sourceDataLine.write(b, 0, len);
+				    }
+				    audioInputStream.close();
+				    sourceDataLine.drain();
+				    sourceDataLine.close();
+	
+				} catch (UnsupportedAudioFileException ex) {
+				    Logger.getLogger(AudioPanel.class.getName()).log(
+					    Level.SEVERE, null, ex);
+				} catch (IOException ex) {
+				    Logger.getLogger(AudioPanel.class.getName()).log(
+					    Level.SEVERE, null, ex);
+				} catch (LineUnavailableException ex) {
+				    Logger.getLogger(AudioPanel.class.getName()).log(
+					    Level.SEVERE, null, ex);
+				}
+	
+			    }
+			});
+			t.start();
 		    }
 		});
-		t.start();
-	    }
-	});
-	top.add(openBtn);
+		top.add(openBtn);
     }
 
     
     private void capture() {
-
-	try {
-            
-            
-            if(counter==1){
-            audioFormat = getAudioFormat();
-	    DataLine.Info dataLineInfo = new DataLine.Info(
-		    TargetDataLine.class, audioFormat);
-
-	    targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
-            
-            }
-
-	    targetDataLine.open(audioFormat);
-	    targetDataLine.start();
-
-	    Thread captureThread = new Thread(new CaptureThread());
-	    captureThread.start();
-	} catch (Exception e) {
-	   e.printStackTrace();
-	}
+		try {
+			if(counter==1){
+				audioFormat = getAudioFormat();
+				DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, audioFormat);
+				targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
+			}
+	
+		    targetDataLine.open(audioFormat);
+		    targetDataLine.start();
+	
+		    Thread captureThread = new Thread(new CaptureThread());
+		    captureThread.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
     private void refresh(){
-    audioFormat = null;
-    byteArrayOutputStream= null;
-    targetDataLine= null;
-    audioInputStream= null;
-    sourceDataLine= null;
+	    audioFormat = null;
+	    byteArrayOutputStream= null;
+	    targetDataLine= null;
+	    audioInputStream= null;
+	    sourceDataLine= null;
     }
     
     private void play() {
@@ -291,131 +276,117 @@ public class AudioPanel extends JPanel{
     public void save() {
         
         AudioFormat audioFormat = getAudioFormat();
-	byte audioData[] = byteArrayOutputStream.toByteArray();
-	InputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
-	audioInputStream = new AudioInputStream(byteArrayInputStream,
+		byte audioData[] = byteArrayOutputStream.toByteArray();
+		InputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
+		audioInputStream = new AudioInputStream(byteArrayInputStream,
 		audioFormat, audioData.length / audioFormat.getFrameSize());
-	
-
-
-            String path = JOptionPane.showInputDialog(null, "enter the name",
+		
+		String path = JOptionPane.showInputDialog(null, "enter the name",
 		"input", JOptionPane.INFORMATION_MESSAGE);
-	if (path == null)
-	    return;
+		if (path == null)
+			return;
 	    try {
-
-		File file = new File(path + ".wav");
-		AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE,
-			file);
-		// doAddButton(filedialog.getDirectory(), filedialog.getFile());
-
-	
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+			File file = new File(path + ".wav");
+			AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE,
+				file);
+			// doAddButton(filedialog.getDirectory(), filedialog.getFile());
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
     }
     
 
     public void saveas() {
-
-	AudioFormat audioFormat = getAudioFormat();
-	byte audioData[] = byteArrayOutputStream.toByteArray();
-	InputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
-	audioInputStream = new AudioInputStream(byteArrayInputStream,
-		audioFormat, audioData.length / audioFormat.getFrameSize());
-	Component p = this.getParent();
-
-	while (p != null && !(p instanceof JFrame)) {
-	    p = p.getParent();
-	}
-	if (p != null) {
-	    JFrame jframe = (JFrame) p;
-
-	    FileDialog filedialog = new FileDialog(jframe, "save",
-		    FileDialog.SAVE);
-	    filedialog.setVisible(true);
-	    try {
-
-		File file = new File(filedialog.getDirectory()
-			+ filedialog.getFile());
-		AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE,
-			file);
-		// doAddButton(filedialog.getDirectory(), filedialog.getFile());
-
-	    } catch (Exception e) {
-		e.printStackTrace();
-	    }
-	}
+		AudioFormat audioFormat = getAudioFormat();
+		byte audioData[] = byteArrayOutputStream.toByteArray();
+		InputStream byteArrayInputStream = new ByteArrayInputStream(audioData);
+		audioInputStream = new AudioInputStream(byteArrayInputStream,
+			audioFormat, audioData.length / audioFormat.getFrameSize());
+		Component p = this.getParent();
+	
+		while (p != null && !(p instanceof JFrame)) {
+		    p = p.getParent();
+		}
+		if (p != null) {
+		    JFrame jframe = (JFrame) p;
+	
+		    FileDialog filedialog = new FileDialog(jframe, "save", FileDialog.SAVE);
+		    filedialog.setVisible(true);
+		    try {
+				File file = new File(filedialog.getDirectory() + filedialog.getFile());
+				AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE,
+					file);
+				// doAddButton(filedialog.getDirectory(), filedialog.getFile());
+	
+		    } catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+		}
     }
 
 
     //get audio format
     private AudioFormat getAudioFormat() {
-	float sampleRate = 16000.0F;
-	// 8000,11025,16000,22050,44100
-	int sampleSizeInBits = 16;
-	// 8,16
-	int channels = 1;
-	// 1,2
-	boolean signed = true;
-	// true,false
-	boolean bigEndian = false;
-	// true,false
-	return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed,
-		bigEndian);
+		float sampleRate = 16000.0F;
+		// 8000,11025,16000,22050,44100
+		int sampleSizeInBits = 16;
+		// 8,16
+		int channels = 1;
+		// 1,2
+		boolean signed = true;
+		// true,false
+		boolean bigEndian = false;
+		// true,false
+		return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
     }
 
     // two threads
     public class PlayThread extends Thread {
 
-	byte tempBuffer[] = new byte[10000];
-
-	public void run() {
-	    try {
-		int cnt;
-
-		while ((cnt = audioInputStream.read(tempBuffer, 0,
-			tempBuffer.length)) != -1) {
-		    if (cnt > 0) {
-
-			sourceDataLine.write(tempBuffer, 0, cnt);
+		byte tempBuffer[] = new byte[10000];
+	
+		public void run() {
+		    try {
+				int cnt;
+		
+				while ((cnt = audioInputStream.read(tempBuffer, 0,
+					tempBuffer.length)) != -1) {
+				    if (cnt > 0) {
+				    	sourceDataLine.write(tempBuffer, 0, cnt);
+				    }
+				}
+		
+				sourceDataLine.drain();
+				sourceDataLine.close();
+		    } catch (Exception e) {
+		    	e.printStackTrace();
 		    }
 		}
-
-		sourceDataLine.drain();
-		sourceDataLine.close();
-	    } catch (Exception e) {
-		 e.printStackTrace();
-	    }
-	}
     }
 
     public class CaptureThread extends Thread {
 
-	byte tempBuffer[] = new byte[10000];
-
-	@Override
-	public void run() {
-	    byteArrayOutputStream = new ByteArrayOutputStream();
-//	    int totaldatasize = 0;
-	    stopCapture = false;
-	    try {
-		while (!stopCapture) {
-
-		    int cnt = targetDataLine.read(tempBuffer, 0,
-			    tempBuffer.length);
-		    if (cnt > 0) {
-
-			byteArrayOutputStream.write(tempBuffer, 0, cnt);
-//			totaldatasize += cnt;
+		byte tempBuffer[] = new byte[10000];
+	
+		@Override
+		public void run() {
+		    byteArrayOutputStream = new ByteArrayOutputStream();
+	//	    int totaldatasize = 0;
+		    stopCapture = false;
+		    try {
+			while (!stopCapture) {
+	
+			    int cnt = targetDataLine.read(tempBuffer, 0,
+				    tempBuffer.length);
+			    if (cnt > 0) {
+					byteArrayOutputStream.write(tempBuffer, 0, cnt);
+		//			totaldatasize += cnt;
+			    }
+			}
+			byteArrayOutputStream.close();
+		    } catch (Exception e) {
 		    }
 		}
-		byteArrayOutputStream.close();
-	    } catch (Exception e) {
-		e.printStackTrace();
-		System.exit(0);
-	    }
-	}
     }
 
 }
