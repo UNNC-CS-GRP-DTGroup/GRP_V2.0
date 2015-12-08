@@ -1,5 +1,3 @@
-package test;
-
 /* ******************************************************************************
  *
  *       Copyright 2008-2010 Hans Dijkema
@@ -18,6 +16,8 @@ package test;
  *   along with JRichTextEditor.  If not, see <http://www.gnu.org/licenses/>.
  *   
  * ******************************************************************************/
+
+package test.TextEditor;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -50,9 +50,11 @@ import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -115,7 +117,7 @@ import nl.dykema.jxmlnote.xml.XMLNoteUtils;
 
 import org.xml.sax.SAXException;
 
-public class JXMLNoteDemo {
+public class InsideJXMLNoteDemo {
 
 	private static String readFileAsString(String filePath)
 			throws java.io.IOException {
@@ -151,14 +153,17 @@ public class JXMLNoteDemo {
 			private MarkerProvider			 	_provider;
 			private MarkerProvider				_provider2;
 			private XMLNoteTranslator 			_translator;
-			private JFrame			  			_frame;
+			private JInternalFrame			  	_frame;
 			private JMenuBar					_menu;
 			private JXMLNoteEditor				_editor;
 			private JXMLNoteEditor				_viewer;
-			private Preferences					_preferences=Preferences.userNodeForPackage(JXMLNoteDemo.class);
+			private Preferences					_preferences=Preferences.userNodeForPackage(InsideJXMLNoteDemo.class);
 			private File						_saveFile=new File("/tmp/xmlnote.jxmlnote");
 			private boolean						_canceled;
 			
+			
+			private JFrame						realFrame;
+			private JDesktopPane				jdpDesktop;
 			
 			private float convertToPixels(int pt) {
 				return (float) DPIAdjuster.adjustPointSize((double) pt);
@@ -312,13 +317,13 @@ public class JXMLNoteDemo {
 				String cmd = e.getActionCommand();
 				System.out.println("command: " + cmd);
 				if (cmd.equals("prefs")) {
-					JDialog dlg=new JDialog(_frame,"Style preferences",true);
-					dlg.setLocationRelativeTo(_frame);
-					JXMLNoteStylePane pane=new JXMLNoteStylePane(_document.getStyles());
-					dlg.add(pane);
-					dlg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dlg.pack();
-					dlg.setVisible(true);
+//					JDialog dlg=new JDialog(_frame,"Style preferences",true);
+//					dlg.setLocationRelativeTo(_frame);
+//					JXMLNoteStylePane pane=new JXMLNoteStylePane(_document.getStyles());
+//					dlg.add(pane);
+//					dlg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//					dlg.pack();
+//					dlg.setVisible(true);
 				} else if (cmd.equals("mark")) {
 					_id += 1;
 					boolean le=_notes.getXMLNoteDoc().setLongEdit(true);
@@ -544,7 +549,7 @@ public class JXMLNoteDemo {
 				//AffineTransform at=gc.getNormalizingTransform();
 				//at.setToScale(2.0, 2.0);
 				
-				_frame = new JFrame();
+				_frame = new JInternalFrame();
 				_translator = new DefaultXMLNoteTranslator();
 				try {
 					_document = new XMLNoteDocument();
@@ -868,11 +873,28 @@ public class JXMLNoteDemo {
 				_editorPanel.add(Box.createRigidArea(new Dimension(0,10)));
 				_editorPanel.add(_viewer);
 				_panel.add(_editorPanel);
-				// _panel.add(_pane);
+//				_panel.add(_pane);
 				_frame.add(_panel);
 				_frame.pack();
 				_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				_frame.setVisible(true);
+				
+				realFrame = new JFrame();
+				jdpDesktop = new JDesktopPane();
+				// Make dragging faster by setting drag mode to Outline
+				jdpDesktop.putClientProperty("JDesktopPane.dragMode", "outline");
+				
+				jdpDesktop.add(_frame);
+				try {
+					_frame.setSelected(true);
+				} catch (java.beans.PropertyVetoException e) {
+				}
+				realFrame.setContentPane(jdpDesktop);
+
+				
+				realFrame.pack();
+				realFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				realFrame.setVisible(true);
 			}
 		}
 
