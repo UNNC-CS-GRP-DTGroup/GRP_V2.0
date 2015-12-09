@@ -118,10 +118,16 @@ import nl.dykema.jxmlnote.xml.XMLNoteUtils;
 import org.xml.sax.SAXException;
 
 public class JRichTextEditor extends JPanel{
+	private JFileChooser chooser;
+	
 	
 	public JRichTextEditor() {
-		// TODO Auto-generated constructor stub
 		super();
+		
+		// TODO
+		// why chooser has to be initialized here?
+		// otherwise, there is an error (probably  related to the thread)
+		chooser = new JFileChooser();
 		createEditor();
 	}
 
@@ -165,13 +171,15 @@ public class JRichTextEditor extends JPanel{
 			private JXMLNoteEditor				_viewer;
 			private Preferences					_preferences=Preferences.userNodeForPackage(JRichTextEditor.class);
 
-			private	String 						windowsPath = "Z:\\JRichTextEditor files\\xmlnote.jxmlnote";
-			private String						macPath = "/tmp/xmlnote.jxmlnote";
+//			private	String 						windowsPath = "Z:\\JRichTextEditor files\\xmlnote.jxmlnote";
 			private String						homePath = System.getProperty("user.home");
-			private File						_saveFile = new File(windowsPath);
+			private String						noteSavePath = homePath + "\\xmlnote.jxmlnote";
+			private String						macPath = "/tmp/xmlnote.jxmlnote";
+
+			private File						_saveFile = new File(noteSavePath);
 			
 			private boolean						_canceled;
-			private JFileChooser 				chooser;
+//			private JFileChooser 				chooser;
 			
 			private float convertToPixels(int pt) {
 				return (float) DPIAdjuster.adjustPointSize((double) pt);
@@ -410,7 +418,8 @@ public class JRichTextEditor extends JPanel{
 				} else if (cmd.startsWith("loadurl")) {
 					try {
 						String U;
-						U="http://www.homeoint.org/books/boericmm/n/nat-ar.htm";
+//						U="http://www.homeoint.org/books/boericmm/n/nat-ar.htm";
+						U = "http://baidu.com";
 						//U="http://www.dijkema.net";  //TODO: Wat te doen met dit soort stuff?
 						//U="http://www.ns.nl";  // TODO: Check wat er gebeurt hier!
 						//U="http://nl.wikipedia.org/wiki/Rich_Text_Format";
@@ -474,7 +483,7 @@ public class JRichTextEditor extends JPanel{
 							String xhtml=XMLNoteToHtml.toString(part, _editor.getMarkMarkupProviderMaker());
 							System.out.println(XMLNoteUtils.prettyPrintXML(xhtml));
 							System.out.println(xhtml);
-							OutputStream sout = new FileOutputStream("/tmp/xmlnote.html");
+							OutputStream sout = new FileOutputStream(homePath + "\\xmlnote.html");
 							sout.write(xhtml.getBytes("UTF-8"));
 							sout.close();
 						}
@@ -486,7 +495,7 @@ public class JRichTextEditor extends JPanel{
 						String xhtml=XMLNoteToHtml.toString(_document, _viewer.getMarkMarkupProviderMaker());
 						System.out.println(XMLNoteUtils.prettyPrintXML(xhtml));
 						System.out.println(xhtml);
-						OutputStream sout = new FileOutputStream("/tmp/xmlnote.html");
+						OutputStream sout = new FileOutputStream(homePath + "\\xmlnote.html");
 						sout.write(xhtml.getBytes("UTF-8"));
 						sout.close();
 					} catch (Exception e1) {
@@ -498,7 +507,8 @@ public class JRichTextEditor extends JPanel{
 						File lastpath=new File(_preferences.get("lastpath", "."));
 //						File lastpath = new File("Z:\\JRichTextEditor files\\");
 //						File lastpath = new File(System.getProperty("user.home"));
-						chooser = new JFileChooser();
+//						chooser = new JFileChooser();
+						chooser.setCurrentDirectory(lastpath);
 						FileNameExtensionFilter filter = new FileNameExtensionFilter("XMLNote files", "jxmlnote");
 						chooser.setFileFilter(filter);
 						int returnVal = chooser.showOpenDialog(JRichTextEditor.this);
@@ -563,6 +573,8 @@ public class JRichTextEditor extends JPanel{
 				//at.setToScale(2.0, 2.0);
 				
 //				_frame = new JInternalFrame();
+//				chooser = new JFileChooser();
+				
 				_translator = new DefaultXMLNoteTranslator();
 				try {
 					_document = new XMLNoteDocument();
@@ -611,7 +623,7 @@ public class JRichTextEditor extends JPanel{
 				_panel.setLayout(new BorderLayout());
 				
 				try {
-					_document.insertString(0, "��n extra graag", null);
+					_document.insertString(0, "test", null);
 				} catch (BadLocationException e2) {
 					e2.printStackTrace();
 				}
@@ -915,6 +927,7 @@ public class JRichTextEditor extends JPanel{
 		}
 
 		SwingUtilities.invokeLater(new EditRun());
+//		new EditRun();
 
 	}
 
