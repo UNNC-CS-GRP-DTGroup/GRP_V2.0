@@ -29,7 +29,7 @@ public class RightPane extends JTabbedPane {
     private JTabbedPane imagePane;
     private JTabbedPane videopanel;
     private JPanel cameraPanel;
-    private JTabbedPane emailPane;
+    private EmailPane emailPane;
 
     /**
      * constructor
@@ -44,7 +44,7 @@ public class RightPane extends JTabbedPane {
 	imagePane = new ImagePane();
 	videopanel = new VideoPanel();
 	cameraPanel = new CameraPanel();
-	// emailPane = new EmailPane();
+	emailPane = new EmailPane();
 	
 
 	addTab("Audio", audioPanel);
