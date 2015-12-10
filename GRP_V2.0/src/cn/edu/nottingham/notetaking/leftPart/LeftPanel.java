@@ -19,6 +19,7 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.*;
 
 import cn.edu.nottingham.notetaking.csv.CsvBuilder;
+import cn.edu.nottingham.notetaking.rightPart.util.EmailPane;
 
 /**
  * This is class including functions on leftpanel and basic settings of
@@ -305,10 +306,21 @@ public class LeftPanel {
 	
 	
 	/////// no longer need  these two buttons
-//	JPanel panel = new JPanel();
+	JPanel emailPanel = new JPanel();
 //	JButton btn1 = new JButton("EDIT");
 //	JButton btn2 = new JButton("LINK");
-	
+	JButton emailButton = new JButton("Email");
+	emailButton.addActionListener(new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			EmailPane dialog = new EmailPane();
+			dialog.setVisible(true);
+		}
+	});
+	emailPanel.add(emailButton);
+	text.add(emailPanel, BorderLayout.NORTH);
 	// start edit mode
 //	btn1.addMouseListener(new MouseAdapter() {
 //	    @Override
