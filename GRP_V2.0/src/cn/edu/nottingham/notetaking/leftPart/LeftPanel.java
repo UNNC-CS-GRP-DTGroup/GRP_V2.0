@@ -79,10 +79,7 @@ public class LeftPanel {
 	
 		// creating the catalogue tree
 		tree = new JTree(root);
-		
-		
-		
-		
+
 		model = (DefaultTreeModel) tree.getModel();
 		if (rootDir.exists()) {// reading from disk if there exsists something
 				       // already.

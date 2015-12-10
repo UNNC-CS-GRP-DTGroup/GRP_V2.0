@@ -2,7 +2,9 @@ package cn.edu.nottingham.notetaking.rightPart.util;
 
 import javax.swing.JTabbedPane;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
@@ -13,6 +15,7 @@ import java.io.File;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,76 +29,126 @@ import javax.swing.ScrollPaneConstants;
 
 import com.edu.nottingham.notetaking.MyJTextField;
 
-public class EmailPane extends JTabbedPane implements ActionListener {
+public class EmailPane extends JDialog implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	JFrame frame = new JFrame();
-	JPanel jp1 = new JPanel();
-	JPanel jp2 = new JPanel();
-	JPanel jp3 = new JPanel();
-	JPanel jp4 = new JPanel();
+	static JFrame tempFrame = null;
+	private FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
+	JPanel outPanel = new JPanel(new GridLayout(1,1));
+	JPanel jp_smtp = new JPanel(new BorderLayout());
+	JPanel jp_username = new JPanel(new BorderLayout());
+	JPanel jp_password = new JPanel(new BorderLayout());
+	JPanel jp_from = new JPanel(new BorderLayout());
+	JPanel jp_to = new JPanel(new BorderLayout());
+	JPanel jp_cc = new JPanel(new BorderLayout());
+	JPanel jp_subject = new JPanel(new BorderLayout());
+	JPanel jp_attachment = new JPanel(new BorderLayout());
+	JPanel jp_content = new JPanel(new BorderLayout());
+	JPanel jp_button = new JPanel(new GridLayout(1,2));
 	
-	JLabel smtp = new JLabel("Smtp Server");
-	JLabel username = new JLabel("Username");
-	JLabel password = new JLabel("Password");
-	JLabel from = new JLabel("From");
-	JLabel to = new JLabel("To");
-	JLabel cc = new JLabel("CC");
-	JLabel subject = new JLabel("Subject");
-	JLabel attachment = new JLabel("Attachment");
+	JLabel smtp = new JLabel    (" Smtp Server  ");
+	JLabel username = new JLabel(" Username     ");
+	JLabel password = new JLabel(" Password     ");
+	JLabel from = new     JLabel(" From         ");
+	JLabel to = new JLabel      (" To           ");
+	JLabel cc = new JLabel      (" CC           ");
+	JLabel subject = new JLabel (" Subject      ");
+	JLabel attachment = new JLabel(" Attachment   ");
 	
-	MyJTextField smtp1 = new MyJTextField();
-	MyJTextField username1 = new MyJTextField();
-	MyJTextField password1 = new MyJTextField();
-	MyJTextField from1 = new MyJTextField();
-	MyJTextField to1 = new MyJTextField();
-	MyJTextField cc1 = new MyJTextField();
-	MyJTextField subject1 = new MyJTextField();
-	MyJTextField attachment1 = new MyJTextField();
-	MyJTextField content = new MyJTextField();
+	MyJTextField smtp1 = new MyJTextField(30);
+	MyJTextField username1 = new MyJTextField(30);
+	JPasswordField password1 = new JPasswordField(30);
+	MyJTextField from1 = new MyJTextField(30);
+	MyJTextField to1 = new MyJTextField(30);
+	MyJTextField cc1 = new MyJTextField(30);
+	MyJTextField subject1 = new MyJTextField(30);
+	MyJTextField attachment1 = new MyJTextField(30);
+	JTextArea content = new JTextArea(10,52);
+	JScrollPane scroll_content = new JScrollPane(content);
+	
 
 	
 	String attach;
-	
 	JButton choose = new JButton("Choose");
 	JButton send = new JButton("Send");
 	JButton clear = new JButton("Clear");
 	
 	JFileChooser jfc = new JFileChooser();
 	
+	private static int width = 450;
+
+	private static int height = 595;
+
+	private static int x = (int) Toolkit.getDefaultToolkit().getScreenSize()
+	.getWidth()
+	/ 2 - width / 2;
+
+	private static int y = (int) Toolkit.getDefaultToolkit().getScreenSize()
+	.getHeight()
+	/ 2 - height / 2;
+	
 	
 	public EmailPane(){
+		super(tempFrame, "Email");
+		
+		this.add(outPanel);
+		outPanel.setLayout(fl);
+		
+		jp_smtp.add(smtp,BorderLayout.WEST);
+		jp_smtp.add(smtp1,BorderLayout.EAST);
+		outPanel.add(jp_smtp);
+		
+		jp_username.add(username, BorderLayout.WEST);
+		jp_username.add(username1,BorderLayout.EAST);
+		outPanel.add(jp_username);
+		
+		jp_password.add(password, BorderLayout.WEST);
+		jp_password.add(password1, BorderLayout.EAST);
+		outPanel.add(jp_password);
+		
+		jp_from.add(from, BorderLayout.WEST);
+		jp_from.add(from1, BorderLayout.EAST);
+		outPanel.add(jp_from);
+		
+		jp_to.add(to, BorderLayout.WEST);
+		jp_to.add(to1, BorderLayout.EAST);
+		outPanel.add(jp_to);
+		
+		jp_cc.add(cc, BorderLayout.WEST);
+		jp_cc.add(cc1, BorderLayout.EAST);
+		outPanel.add(jp_cc);
+		
+		jp_subject.add(subject, BorderLayout.WEST);
+		jp_subject.add(subject1, BorderLayout.EAST);
+		outPanel.add(jp_subject);
+		
+		jp_attachment.add(attachment, BorderLayout.WEST);
+		choose.setPreferredSize(new Dimension(190, 20));
+		jp_attachment.add(choose, BorderLayout.EAST);
+		outPanel.add(jp_attachment);
+		
+		jp_content.add(scroll_content, BorderLayout.CENTER);
+		scroll_content.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroll_content.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		content.setLineWrap(true);
+		outPanel.add(jp_content);
+		
+		send.setPreferredSize(new Dimension(190,40));
+		clear.setPreferredSize(new Dimension(190,40));
+		jp_button.add(send);
+		jp_button.add(clear);
+		outPanel.add(jp_button);
+		
+		
+		
+		
 
-		frame.getContentPane().setLayout(new GridLayout(4,1,5,5));
-		jp1.setLayout(new GridLayout(7,2,5,5));
-		jp1.add(smtp);
-		jp1.add(smtp1);
-		jp1.add(username);
-		jp1.add(username1);
-		jp1.add(password);
-		jp1.add(password1);
-		jp1.add(from);
-		jp1.add(from1);
-		jp1.add(to);
-		jp1.add(to1);
-		jp1.add(cc);
-		jp1.add(cc1);
-		jp1.add(subject);
-		jp1.add(subject1);
-		JScrollPane scroller = new JScrollPane(content);
-		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		jp2.setLayout(new GridLayout(1,3,5,5));
-		jp2.add(attachment,0);
-		jp2.add(attachment1,1);
-		jp2.add(choose,2);
 		
-		jp4.setLayout(new FlowLayout());
-		jp4.add(send);
-		jp4.add(clear);
+		
 		
 		clear.addActionListener(new ActionListener(){
 
@@ -111,6 +164,12 @@ public class EmailPane extends JTabbedPane implements ActionListener {
 				subject1.setText(null);
 				content.setText(null);
 				attachment1.setText(null);
+				
+				jp_attachment.remove(attachment1);
+	            jp_attachment.add(choose);
+	            jp_attachment.setVisible(false);
+	            jp_attachment.setVisible(true);
+				
 			}
 			
 			
@@ -149,24 +208,11 @@ public class EmailPane extends JTabbedPane implements ActionListener {
 		});
 		
 		
-		
-	
-		frame.getContentPane().add(jp1);
-		frame.getContentPane().add(jp2);
-		frame.getContentPane().add(scroller);
-		frame.getContentPane().add(jp4);
-		
-		
-		
-		
-		
-		
-		double lx=Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        double ly=Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-        frame.setLocation(new Point((int)(lx/2)-150,(int)(ly/2)-150));
-		frame.setSize(800,800);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocation(x, y);
+		this.setSize(width,height);
+		this.setResizable(false);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	public void actionPerformed(ActionEvent e){
@@ -178,8 +224,14 @@ public class EmailPane extends JTabbedPane implements ActionListener {
 	        else{
 	            File f=jfc.getSelectedFile();//f为选择到的目录
 	            attachment1.setText(f.getAbsolutePath());
-	            
+	            attachment1.setEditable(false);
 	            attach = f.getAbsolutePath();
+	            jp_attachment.remove(choose);
+	            jp_attachment.add(attachment1);
+	            jp_attachment.setVisible(false);
+	            jp_attachment.setVisible(true);
+	            
+	            
 	        }
 		
 	}
