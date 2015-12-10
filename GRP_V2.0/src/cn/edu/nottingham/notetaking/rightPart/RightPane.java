@@ -44,7 +44,7 @@ public class RightPane extends JTabbedPane {
 	imagePane = new ImagePane();
 	videopanel = new VideoPanel();
 	cameraPanel = new CameraPanel();
-	emailPane = new EmailPane();
+//	emailPane = new EmailPane();
 	
 
 	addTab("Audio", audioPanel);
@@ -54,7 +54,7 @@ public class RightPane extends JTabbedPane {
 	addTab("Image", imagePane);
 	addTab("Video", videopanel);
 	addTab("Camera", cameraPanel);
-	addTab("Email", emailPane);
+//	addTab("Email", emailPane);
 
     }
 }
