@@ -76,7 +76,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	JButton send = new JButton("Send");
 	JButton clear = new JButton("Clear");
 	
-	JFileChooser jfc = new JFileChooser();
+	JFileChooser jfc;
 	
 	private static int width = 450;
 
@@ -94,6 +94,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	public EmailPane(){
 		super(tempFrame, "Email");
 		
+		jfc = new JFileChooser();
 		this.add(outPanel);
 		outPanel.setLayout(fl);
 		

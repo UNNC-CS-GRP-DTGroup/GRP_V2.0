@@ -35,6 +35,7 @@ public class LeftPanel {
     JScrollPane jsp;
     JTextArea area;
     JTree tree;
+    EmailPane dialog;
     String title;
     
 //    final MyTextPane tp;
@@ -271,7 +272,7 @@ public class LeftPanel {
 		// lefthand side second part - TextPane
 	//	tp = new MyTextPane();
 		jrte = new JRichTextEditor();
-		text.add(jrte, BorderLayout.CENTER);
+		text.add(jrte, BorderLayout.SOUTH);
 		
 	//	// respond hyperlink event in textpane
 	//	tp.addHyperlinkListener(new HyperlinkListener() {
@@ -306,7 +307,7 @@ public class LeftPanel {
 	
 	
 	/////// no longer need  these two buttons
-	JPanel emailPanel = new JPanel();
+//	JPanel emailPanel = new JPanel();
 //	JButton btn1 = new JButton("EDIT");
 //	JButton btn2 = new JButton("LINK");
 	JButton emailButton = new JButton("Email");
@@ -315,12 +316,12 @@ public class LeftPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			EmailPane dialog = new EmailPane();
+			dialog = new EmailPane();
 			dialog.setVisible(true);
 		}
 	});
-	emailPanel.add(emailButton);
-	text.add(emailPanel, BorderLayout.NORTH);
+//	emailPanel.add(emailButton);
+	text.add(emailButton, BorderLayout.NORTH);
 	// start edit mode
 //	btn1.addMouseListener(new MouseAdapter() {
 //	    @Override

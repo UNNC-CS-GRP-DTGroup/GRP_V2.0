@@ -896,7 +896,7 @@ public class JRichTextEditor extends JPanel{
 //				(JRichTextEditor.this).setJMenuBar(_menu);
 				_panel.add(_bar,BorderLayout.NORTH);
 				// _editor.setPreferredSize(new Dimension(700,700));
-				_editorPanel.setPreferredSize(new Dimension(700, 1200));
+				_editorPanel.setPreferredSize(new Dimension(700, 400));
 				_editorPanel.add(_editor);
 				_editorPanel.add(Box.createRigidArea(new Dimension(0,10)));
 				
