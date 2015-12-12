@@ -1,5 +1,6 @@
 package cn.edu.nottingham.notetaking.mainFrame;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -32,6 +33,7 @@ public class MyFrame extends JFrame {
 		splitPane = new JSplitPane();
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setContinuousLayout(true);
+		splitPane.setDividerLocation(910);
 		splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
 		
 		splitPane.setRightComponent(new RightPane());
@@ -42,7 +44,7 @@ public class MyFrame extends JFrame {
 //		outPanel.add(new LeftPanel().getLeft());
 //		outPanel.add(new RightPane());
 		
-		setSize(1200, 650);
+		setSize(1380, 750);
 		setVisible(true);
 		System.out.println("set to true");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
