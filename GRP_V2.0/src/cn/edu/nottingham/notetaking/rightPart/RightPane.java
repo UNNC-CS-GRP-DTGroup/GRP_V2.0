@@ -1,9 +1,19 @@
 package cn.edu.nottingham.notetaking.rightPart;
 
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.*;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JButton;
+import javax.swing.event.*;
+import javax.swing.ImageIcon;
+
+import com.sun.prism.paint.Color;
 
 import cn.edu.nottingham.notetaking.rightPart.util.AudioPanel;
 import cn.edu.nottingham.notetaking.rightPart.util.CameraPanel;
@@ -30,6 +40,7 @@ public class RightPane extends JTabbedPane {
     private JTabbedPane videopanel;
     private JPanel cameraPanel;
     private JTabbedPane emailPane;
+    private JButton button;
 
     /**
      * constructor
@@ -44,18 +55,16 @@ public class RightPane extends JTabbedPane {
 	imagePane = new ImagePane();
 	videopanel = new VideoPanel();
 	cameraPanel = new CameraPanel();
-//	emailPane = new EmailPane();
+    //emailPane = new EmailPane();
 	
-	
-
-	addTab("Audio", audioPanel);
-	addTab("Office", officePane);
-	addTab("Pdf", pdfPane);
-	addTab("Browser", browserPanel);
-	addTab("Image", imagePane);
-	addTab("Video", videopanel);
-	addTab("Camera", cameraPanel);
-	addTab("Email", emailPane);
+	addTab(" Audio", new ImageIcon("icons/audio.png"), audioPanel);
+	addTab(" Office", new ImageIcon("icons/office.png"), officePane);
+	addTab(" Pdf", new ImageIcon("icons/pdf.png"), pdfPane);
+	addTab(" Browser", new ImageIcon("icons/browser.png"), browserPanel);
+	addTab(" Image", new ImageIcon("icons/images.png"), imagePane);
+	addTab(" Video", new ImageIcon("icons/video 2.png"), videopanel);
+	addTab(" Camera", new ImageIcon("icons/camera.png"), cameraPanel);
+	addTab(" Email", new ImageIcon("icons/email.png"), emailPane);
 
     }
 }

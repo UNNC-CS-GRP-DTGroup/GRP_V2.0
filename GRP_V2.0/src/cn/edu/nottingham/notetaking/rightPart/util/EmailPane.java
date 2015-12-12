@@ -182,6 +182,6 @@ public class EmailPane extends JTabbedPane implements ActionListener {
 	            attach = f.getAbsolutePath();
 	        }
 		
-	}
+	} 
 
 }
