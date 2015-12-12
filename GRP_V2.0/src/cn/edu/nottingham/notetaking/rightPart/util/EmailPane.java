@@ -94,7 +94,15 @@ public class EmailPane extends JDialog implements ActionListener {
 	public EmailPane(){
 		super(tempFrame, "Email");
 		
-		jfc = new JFileChooser();
+ 		Thread emailThread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				jfc = new JFileChooser();
+			}
+ 		});
+		
+ 		emailThread.start();
 		this.add(outPanel);
 		outPanel.setLayout(fl);
 		
