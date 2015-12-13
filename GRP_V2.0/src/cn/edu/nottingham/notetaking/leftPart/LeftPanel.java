@@ -310,7 +310,7 @@ public class LeftPanel {
 //	JPanel emailPanel = new JPanel();
 //	JButton btn1 = new JButton("EDIT");
 //	JButton btn2 = new JButton("LINK");
-	JButton emailButton = new JButton("Email");
+	JButton emailButton = new JButton(" E-mail", new ImageIcon("icons/email.png"));
 	emailButton.addActionListener(new ActionListener(){
 
 		@Override
