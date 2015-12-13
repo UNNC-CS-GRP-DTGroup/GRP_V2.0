@@ -1,12 +1,9 @@
 package cn.edu.nottingham.notetaking.rightPart;
 
-import java.awt.*;
-import java.awt.event.*;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
