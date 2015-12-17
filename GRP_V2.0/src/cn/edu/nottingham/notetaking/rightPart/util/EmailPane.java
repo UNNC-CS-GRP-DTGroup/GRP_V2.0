@@ -1,18 +1,16 @@
 package cn.edu.nottingham.notetaking.rightPart.util;
 
-import javax.swing.JTabbedPane;
+import javax.swing.*;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Vector;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,8 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 
 import com.edu.nottingham.notetaking.MyJTextField;
 
@@ -48,6 +44,11 @@ public class EmailPane extends JDialog implements ActionListener {
 	JPanel jp_attachment = new JPanel(new BorderLayout());
 	JPanel jp_content = new JPanel(new BorderLayout());
 	JPanel jp_button = new JPanel(new GridLayout(1,2));
+	
+	private JMenuBar menuBar = new JMenuBar();
+	private JMenu menuFile = new JMenu("File");
+	private JMenuItem menuItemSetting = new JMenuItem("Settings..");
+	private ConfigUtility configUtil = new ConfigUtility();
 	
 	JLabel smtp = new JLabel    (" Smtp Server  ");
 	JLabel username = new JLabel(" Username     ");
@@ -80,7 +81,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	
 	private static int width = 450;
 
-	private static int height = 595;
+	private static int height = 510;
 
 	private static int x = (int) Toolkit.getDefaultToolkit().getScreenSize()
 	.getWidth()
@@ -94,24 +95,35 @@ public class EmailPane extends JDialog implements ActionListener {
 	public EmailPane(){
 		super(tempFrame, "Email");
 		
+		menuItemSetting.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				SettingsDialog dialog = new SettingsDialog(EmailPane.this, configUtil);
+				dialog.setVisible(true);
+			}
+		});
+		menuFile.add(menuItemSetting);
+		menuBar.add(menuFile);
+		setJMenuBar(menuBar);
+		
 		this.add(outPanel);
 		outPanel.setLayout(fl);
 		
-		jp_smtp.add(smtp,BorderLayout.WEST);
+		/*jp_smtp.add(smtp,BorderLayout.WEST);
 		jp_smtp.add(smtp1,BorderLayout.EAST);
 		outPanel.add(jp_smtp);
 		
 		jp_username.add(username, BorderLayout.WEST);
 		jp_username.add(username1,BorderLayout.EAST);
-		outPanel.add(jp_username);
+		outPanel.add(jp_username);*/
 		
-		jp_password.add(password, BorderLayout.WEST);
+		/*jp_password.add(password, BorderLayout.WEST);
 		jp_password.add(password1, BorderLayout.EAST);
 		outPanel.add(jp_password);
-		
-		jp_from.add(from, BorderLayout.WEST);
+		*/
+		/*jp_from.add(from, BorderLayout.WEST);
 		jp_from.add(from1, BorderLayout.EAST);
-		outPanel.add(jp_from);
+		outPanel.add(jp_from);*/
 		
 		jp_to.add(to, BorderLayout.WEST);
 		jp_to.add(to1, BorderLayout.EAST);
@@ -180,27 +192,28 @@ public class EmailPane extends JDialog implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String smtp2 = smtp1.getText();
+				/*String smtp2 = smtp1.getText();
 				System.out.println(smtp2);
 				String from2 = from1.getText();
-				System.out.println(from2);
+				System.out.println(from2);*/
 				String to2 = to1.getText();
 				System.out.println(to2);
 				String cc2 = cc1.getText();
 				System.out.println(cc2);
-				String username2 = username1.getText();
+				/*String username2 = username1.getText();
 				System.out.println(username2);
 				String password2 = password1.getText();
-				System.out.println(password2);
+				System.out.println(password2);*/
 				String subject2 = subject1.getText();
 				System.out.println(subject2);
 				String text2 = content.getText();
 				System.out.println(text2);
 				try{
-					Mail.sendAndCc(smtp2, from2, to2, cc2, subject2, text2, username2, password2,attach);
-					JOptionPane.showMessageDialog(null, "发送成功！");
+					Properties prop = configUtil.loadProperties();
+					Mail.sendAndCc(prop, to2, cc2, subject2, text2,attach);
+					JOptionPane.showMessageDialog(null, "Success!");
 				}catch (Exception e1){
-					JOptionPane.showMessageDialog(null, "发送失败!\n"+e1.getMessage());
+					JOptionPane.showMessageDialog(null, "Failed!\n"+e1.getMessage());
 					e1.printStackTrace();
 				}
 			

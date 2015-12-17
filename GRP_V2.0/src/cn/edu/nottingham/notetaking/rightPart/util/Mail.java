@@ -5,7 +5,6 @@ import java.util.Properties;
 import java.util.Vector;
 
 import javax.activation.DataHandler;
-import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.Address;
 import javax.mail.BodyPart;
@@ -176,9 +175,13 @@ public class Mail {
 	}
 
 	/*调用sendOut方法完成发送*/
-	public static boolean sendAndCc(String smtp, String from, String to, String copyto,
-		String subject, String content, String username, String password,String attach) {
-		Mail theMail = new Mail(smtp);
+	public static boolean sendAndCc(Properties prop, String to, String copyto,
+		String subject, String content,String attach) {
+		String smtp1 = prop.getProperty("mail.smtp.host");
+		String username1 = prop.getProperty("mail.user");
+		String password1 = prop.getProperty("mail.password");
+		System.out.println(smtp1);
+		Mail theMail = new Mail(smtp1);
 		theMail.setNeedAuth(true); // 验证
 		theMail.addAttachfile(attach);
 		if (!theMail.setSubject(subject))
@@ -189,9 +192,9 @@ public class Mail {
 			return false;
 		if (!theMail.setCopyTo(copyto))
 			return false;
-		if (!theMail.setFrom(from))
+		if (!theMail.setFrom(username1))
 			return false;
-		theMail.setNamePass(username, password);
+		theMail.setNamePass(username1, password1);
 		if (!theMail.sendOut())
 			return false;
 		return true;
