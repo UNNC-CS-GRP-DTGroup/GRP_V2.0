@@ -82,10 +82,10 @@ public class GUIClient {
 //	    new MyFrame();
 		
 		//avoid unsafe of swing.
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("Start!");
+//		SwingUtilities.invokeLater(new Runnable() {
+//			@Override
+//			public void run() {
+//				System.out.println("Start!");
 //				try {
 //					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //				} catch (ClassNotFoundException e) {
@@ -105,7 +105,7 @@ public class GUIClient {
 			    try
 			    {
 			        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-			        UIManager.put("RootPane.setupButtonVisible", false); // close "set up" button
+//			        UIManager.put("RootPane.setupButtonVisible", false); // close "set up" button
 			    }
 			    catch(Exception e)
 			    {
@@ -113,9 +113,9 @@ public class GUIClient {
 			    }
 //			    
 			    // System.setProperty("sun.java2d.noddraw", "true");
-				new MyFrame();
-			}
-		});
+				MyFrame.getInstance();
+//			}
+//		});
 	}
 	
 	

@@ -27,7 +27,7 @@ import cn.edu.nottingham.notetaking.rightPart.util.EmailPane;
  *
  * @author RUNFA LV,YUFAN SHAO,WENYU DU
  */
-public class LeftPanel {
+public class LeftPanel  {
     // variables
     JButton add;
     JButton remove;

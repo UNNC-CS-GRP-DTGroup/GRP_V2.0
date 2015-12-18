@@ -29,13 +29,15 @@ import javax.swing.ScrollPaneConstants;
 
 import com.edu.nottingham.notetaking.MyJTextField;
 
+import cn.edu.nottingham.notetaking.mainFrame.MyFrame;
+
 public class EmailPane extends JDialog implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	static JFrame tempFrame = null;
+//	static JFrame tempFrame = null;
 	private FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
 	JPanel outPanel = new JPanel(new GridLayout(1,1));
 	JPanel jp_smtp = new JPanel(new BorderLayout());
@@ -76,7 +78,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	JButton send = new JButton("Send");
 	JButton clear = new JButton("Clear");
 	
-	JFileChooser jfc;
+//	private static JFileChooser jfc;
 	
 	private static int width = 450;
 
@@ -92,17 +94,8 @@ public class EmailPane extends JDialog implements ActionListener {
 	
 	
 	public EmailPane(){
-		super(tempFrame, "Email");
+		super(MyFrame.getInstance(), "Email");
 		
- 		Thread emailThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				jfc = new JFileChooser();
-			}
- 		});
-		
- 		emailThread.start();
 		this.add(outPanel);
 		outPanel.setLayout(fl);
 		
@@ -225,24 +218,30 @@ public class EmailPane extends JDialog implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e){
-			jfc.setFileSelectionMode(0);
-	        int state=jfc.showOpenDialog(null);
-	        if(state==1){
-	            return;
-	        }
-	        else{
-	            File f=jfc.getSelectedFile();//f为选择到的目录
-	            attachment1.setText(f.getAbsolutePath());
-	            attachment1.setEditable(false);
-	            attach = f.getAbsolutePath();
-	            jp_attachment.remove(choose);
-	            jp_attachment.add(attachment1);
-	            jp_attachment.setVisible(false);
-	            jp_attachment.setVisible(true);
-	            
-	            
-	        }
-		
-	}
+//	 		Thread emailThread = new Thread(new Runnable() {
+//	
+//				@Override
+//				public void run() {
+					JFileChooser jfc = new JFileChooser();
+					jfc.setFileSelectionMode(0);
+			        int state = jfc.showOpenDialog(null);
+			        if(state==1){
+			            return;
+			        }
+			        else{
+			            File f=jfc.getSelectedFile();//f为选择到的目录
+			            attachment1.setText(f.getAbsolutePath());
+			            attachment1.setEditable(false);
+			            attach = f.getAbsolutePath();
+			            jp_attachment.remove(choose);
+			            jp_attachment.add(attachment1);
+			            jp_attachment.setVisible(false);
+			            jp_attachment.setVisible(true);    
+			        }
+				}
+//	 		});
+//			
+//	 		emailThread.start();
+//	}
 
 }

@@ -1,5 +1,6 @@
 package cn.edu.nottingham.notetaking.mainFrame;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -17,35 +18,43 @@ import cn.edu.nottingham.notetaking.rightPart.RightPane;
  */
 public class MyFrame extends JFrame {
 //	JPanel outPanel;
-	JSplitPane splitPane;
+	private static JSplitPane splitPane;
 	private static final long serialVersionUID = 66563949539476644L;
-
-	public MyFrame() {
+	private static MyFrame uniqueInstance;
+	
+	private MyFrame() {
 		super("NoteBook GUI");
+	}
+
+	public static MyFrame getInstance() {
+		if(uniqueInstance == null) {
+			uniqueInstance = new MyFrame();
+			System.setProperty("sun.java2d.noddraw", "true");
+			
+	//		outPanel = new JPanel();
+	//		outPanel.setLayout(new GridLayout(1, 2));
+	//		getContentPane().add(outPanel);
+			
+			splitPane = new JSplitPane();
+			splitPane.setOneTouchExpandable(true);
+			splitPane.setContinuousLayout(true);
+			splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+			
+			splitPane.setRightComponent(new RightPane());
+			splitPane.setLeftComponent(new LeftPanel().getLeft());
+			uniqueInstance.getContentPane().add(splitPane);
+			
+	//		add left and right parts
+	//		outPanel.add(new LeftPanel().getLeft());
+	//		outPanel.add(new RightPane());
+			
+			uniqueInstance.setSize(1200, 650);
+			uniqueInstance.setVisible(true);
+			System.out.println("set to true");
+			uniqueInstance.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
 		
-		System.setProperty("sun.java2d.noddraw", "true");
-		
-//		outPanel = new JPanel();
-//		outPanel.setLayout(new GridLayout(1, 2));
-//		getContentPane().add(outPanel);
-		
-		splitPane = new JSplitPane();
-		splitPane.setOneTouchExpandable(true);
-		splitPane.setContinuousLayout(true);
-		splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-		
-		splitPane.setRightComponent(new RightPane());
-		splitPane.setLeftComponent(new LeftPanel().getLeft());
-		getContentPane().add(splitPane);
-		
-//		add left and right parts
-//		outPanel.add(new LeftPanel().getLeft());
-//		outPanel.add(new RightPane());
-		
-		setSize(1200, 650);
-		setVisible(true);
-		System.out.println("set to true");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		return uniqueInstance;
 
 	}
 }
