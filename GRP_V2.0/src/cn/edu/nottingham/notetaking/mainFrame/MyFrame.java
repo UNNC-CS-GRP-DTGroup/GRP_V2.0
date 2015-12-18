@@ -32,7 +32,7 @@ public class MyFrame extends JFrame {
 		splitPane = new JSplitPane();
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setContinuousLayout(true);
-		splitPane.setDividerLocation(910);
+		splitPane.setDividerLocation(905);
 		splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
 		
 		splitPane.setRightComponent(new RightPane());

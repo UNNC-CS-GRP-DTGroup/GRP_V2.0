@@ -52,7 +52,7 @@ public class RightPane extends JTabbedPane {
 	addTab(" Pdf", new ImageIcon("icons/pdf.png"), pdfPane);
 	addTab(" Browser", new ImageIcon("icons/browser.png"), browserPanel);
 	addTab(" Image", new ImageIcon("icons/images.png"), imagePane);
-	addTab(" Video", new ImageIcon("icons/video 2.png"), videopanel);
+	addTab(" Video", new ImageIcon("icons/video.png"), videopanel);
 	addTab(" Camera", new ImageIcon("icons/camera.png"), cameraPanel);
 //	addTab("Email", emailPane);
 
