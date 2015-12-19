@@ -36,14 +36,10 @@ public class EmailPane extends JDialog implements ActionListener {
 	static JFrame tempFrame = null;
 	private FlowLayout fl = new FlowLayout(FlowLayout.LEFT);
 	JPanel outPanel = new JPanel(new GridLayout(1,1));
-	JPanel jp_smtp = new JPanel(new BorderLayout());
-	JPanel jp_username = new JPanel(new BorderLayout());
-	JPanel jp_password = new JPanel(new BorderLayout());
-	JPanel jp_from = new JPanel(new BorderLayout());
-	JPanel jp_to = new JPanel(new BorderLayout());
-	JPanel jp_cc = new JPanel(new BorderLayout());
-	JPanel jp_subject = new JPanel(new BorderLayout());
-	JPanel jp_attachment = new JPanel(new BorderLayout());
+	JPanel jp_to = new JPanel(new FlowLayout());
+	JPanel jp_cc = new JPanel(new FlowLayout());
+	JPanel jp_subject = new JPanel(new FlowLayout());
+	JPanel jp_attachment = new JPanel(new FlowLayout());
 	JPanel jp_content = new JPanel(new BorderLayout());
 	JPanel jp_button = new JPanel(new GridLayout(1,2));
 	JPanel jp_aths = new JPanel();
@@ -86,7 +82,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	
 	private static int width = 450;
 
-	private static int height = 510;
+	private static int height = 545;
 
 	private static int x = (int) Toolkit.getDefaultToolkit().getScreenSize()
 	.getWidth()
@@ -131,22 +127,24 @@ public class EmailPane extends JDialog implements ActionListener {
 		jp_from.add(from1, BorderLayout.EAST);
 		outPanel.add(jp_from);*/
 		
-		jp_to.add(to, BorderLayout.WEST);
-		jp_to.add(to1, BorderLayout.EAST);
+		jp_to.add(to);
+		jp_to.add(to1);
 		outPanel.add(jp_to);
 		
-		jp_cc.add(cc, BorderLayout.WEST);
-		jp_cc.add(cc1, BorderLayout.EAST);
+		jp_cc.add(cc);
+		jp_cc.add(cc1);
 		outPanel.add(jp_cc);
 		
-		jp_subject.add(subject, BorderLayout.WEST);
-		jp_subject.add(subject1, BorderLayout.EAST);
+		jp_subject.add(subject);
+		jp_subject.add(subject1);
 		outPanel.add(jp_subject);
 		
-		jp_attachment.add(attachment, BorderLayout.WEST);
-		jp_attachment.add(remove,BorderLayout.EAST);
+		jp_attachment.add(attachment);
 		choose.setPreferredSize(new Dimension(190, 20));
-		jp_attachment.add(choose, BorderLayout.CENTER);
+		jp_attachment.add(choose);
+		jp_attachment.add(Box.createHorizontalStrut(10));
+		remove.setPreferredSize(new Dimension(80,20));
+		jp_attachment.add(remove);
 		outPanel.add(jp_attachment);
 		
 		outPanel.add(jp_aths);
@@ -165,6 +163,7 @@ public class EmailPane extends JDialog implements ActionListener {
 		
 		
 		
+
 		remove.addActionListener(new ActionListener(){
 
 			@Override
@@ -172,7 +171,8 @@ public class EmailPane extends JDialog implements ActionListener {
 				// TODO Auto-generated method stub
 				jp_aths.removeAll();
 				//jp_aths.invalidate();
-				EmailPane.this.setSize(width,510);
+				EmailPane.this.setSize(width,545);
+				initHeight(545);
 				jp_aths.repaint();
 				attach.clear();
 			}
@@ -198,7 +198,8 @@ public class EmailPane extends JDialog implements ActionListener {
 				content.setText(null);
 				jp_aths.removeAll();
 				//jp_aths.invalidate();
-				EmailPane.this.setSize(width,510);
+				EmailPane.this.setSize(width,545);
+				initHeight(545);
 				jp_aths.repaint();
 				attach.clear();
 				//attachment1.setText(null);
@@ -254,6 +255,11 @@ public class EmailPane extends JDialog implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
+	private void initHeight(int num) {
+		// TODO Auto-generated method stub
+		height = num;
+	}
+
 	public void actionPerformed(ActionEvent e){
 		//jfc.setMultiSelectionEnabled(true);
 			jfc.setFileSelectionMode(0);
@@ -262,9 +268,8 @@ public class EmailPane extends JDialog implements ActionListener {
 	            return;
 	        }
 	        else{
-	        	
 	            File f=jfc.getSelectedFile();//f为选择到的目录
-	            MyJTextField ath = new MyJTextField(30);
+	            MyJTextField ath = new MyJTextField(50);
 	            ath.setText(f.getAbsolutePath());
 	            ath.setEditable(false);
 	            attach.add(f.getAbsolutePath());
@@ -273,6 +278,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	            EmailPane.this.setSize(width,height);
 	            
 	            EmailPane.this.repaint();
+	            
 	            
 	            
 	            //jp_attachment.add(choose, BorderLayout.EAST);
