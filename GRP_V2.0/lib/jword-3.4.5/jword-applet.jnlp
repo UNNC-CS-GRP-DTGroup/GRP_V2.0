@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for JWord3 -->
+<jnlp spec="1.0+" codebase=".">
+  <information>
+    <title>JWord2</title>
+    <vendor>Pilot Software</vendor>
+    <description>JWord3</description>
+    <description kind="short">deneme</description>
+    <!-- <offline-allowed/>  -->
+  </information>
+  <update check="always" policy="prompt-update"/>  
+  <security>
+      <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.6.0+" java-vm-args="-client -esa -Xnoclassgc -Dsun.java2d.noddraw=true"/>
+    <jar href="jword-3.4.5-eval.jar"/>
+  </resources>
+<applet-desc  name="JWord3" main-class="com.pilot.jword.ui.TestApplet" width="600" height="600"></applet-desc>
+</jnlp> 

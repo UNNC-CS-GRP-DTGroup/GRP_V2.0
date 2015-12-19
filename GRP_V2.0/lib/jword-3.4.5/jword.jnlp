@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for JWord3 -->
+<jnlp spec="1.0+" codebase=".">
+  <information>
+    <title>JWord3</title>
+    <vendor>Pilot Software</vendor>
+    <description>JWord3</description>
+    <description kind="short">deneme</description>
+    <!-- <offline-allowed/>  -->
+    <shortcut online="false">
+      <desktop/>
+      <menu submenu="Pilot Software"/>
+    </shortcut>
+  </information>
+  <update check="always" policy="prompt-update"/>  
+  <security>
+      <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.6.0+" java-vm-args="-client -esa -Xnoclassgc -Dsun.java2d.noddraw=true"/>
+    <jar href="jword-3.4.5.jar"/>
+	<jar href="lib\kahve_0_8_2.jar"/>
+	<jar href="lib\binding-1.3.1.jar"/>
+	<jar href="lib\commons-codec-1.3.jar"/>
+	<jar href="lib\irunj_115.jar"/>
+	<jar href="lib\jgoodies-looks-2.5.3.jar"/>
+	<jar href="lib\jgoodies-forms-1.4.0.jar"/>
+	<jar href="lib\jgoodies-common-1.6.0.jar"/>
+	<jar href="lib\jmath-1.0.2.jar"/>
+	<jar href="lib\jai_codec.jar"/>
+	<jar href="lib\svgSalamander-tiny.jar"/>
+	<jar href="lib\dict_en.jar"/>
+	<jar href="lib\jmyspell-core-1.0.0-beta-2.jar"/>	
+	<jar href="lib\fop\avalon-framework-4.2.0.jar"/>
+	<jar href="lib\fop\batik-all-1.7.jar"/>
+	<jar href="lib\fop\commons-io-1.3.1.jar"/>
+	<jar href="lib\fop\commons-logging-1.0.4.jar"/>
+	<jar href="lib\fop\fop.jar"/>
+	<jar href="lib\fop\serializer-2.7.0.jar"/>
+	<jar href="lib\fop\servlet-2.2.jar"/>
+	<jar href="lib\fop\xalan-2.7.0.jar"/>
+	<jar href="lib\fop\xercesImpl-2.7.1.jar"/>
+	<jar href="lib\fop\xml-apis-1.3.04.jar"/>
+	<jar href="lib\fop\xml-apis-ext-1.3.04.jar"/>
+	<jar href="lib\fop\xmlgraphics-commons-1.5.jar"/>	
+  </resources>
+  <application-desc main-class="com.pilot.jword.TestUI"/>
+</jnlp> 
