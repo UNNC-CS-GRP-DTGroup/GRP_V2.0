@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 
 import com.edu.nottingham.notetaking.MyJTextField;
 
@@ -44,9 +46,11 @@ public class EmailPane extends JDialog implements ActionListener {
 	JPanel jp_attachment = new JPanel(new BorderLayout());
 	JPanel jp_content = new JPanel(new BorderLayout());
 	JPanel jp_button = new JPanel(new GridLayout(1,2));
+	JPanel jp_aths = new JPanel();
+	
 	
 	private JMenuBar menuBar = new JMenuBar();
-	private JMenu menuFile = new JMenu("File");
+	private JMenu menuFile = new JMenu("Account");
 	private JMenuItem menuItemSetting = new JMenuItem("Settings..");
 	private ConfigUtility configUtil = new ConfigUtility();
 	
@@ -66,18 +70,19 @@ public class EmailPane extends JDialog implements ActionListener {
 	MyJTextField to1 = new MyJTextField(30);
 	MyJTextField cc1 = new MyJTextField(30);
 	MyJTextField subject1 = new MyJTextField(30);
-	MyJTextField attachment1 = new MyJTextField(30);
+	//MyJTextField attachment1 = new MyJTextField(30);
 	JTextArea content = new JTextArea(10,52);
 	JScrollPane scroll_content = new JScrollPane(content);
 	
 
-	
-	String attach;
+	ArrayList<String> attach = new ArrayList<String>();
 	JButton choose = new JButton("Choose");
 	JButton send = new JButton("Send");
 	JButton clear = new JButton("Clear");
+	JButton remove = new JButton("Remove");
 	
 	JFileChooser jfc = new JFileChooser();
+	
 	
 	private static int width = 450;
 
@@ -95,6 +100,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	public EmailPane(){
 		super(tempFrame, "Email");
 		
+		jp_aths.setLayout(new BoxLayout(jp_aths,BoxLayout.Y_AXIS));
 		menuItemSetting.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -138,9 +144,12 @@ public class EmailPane extends JDialog implements ActionListener {
 		outPanel.add(jp_subject);
 		
 		jp_attachment.add(attachment, BorderLayout.WEST);
+		jp_attachment.add(remove,BorderLayout.EAST);
 		choose.setPreferredSize(new Dimension(190, 20));
-		jp_attachment.add(choose, BorderLayout.EAST);
+		jp_attachment.add(choose, BorderLayout.CENTER);
 		outPanel.add(jp_attachment);
+		
+		outPanel.add(jp_aths);
 		
 		jp_content.add(scroll_content, BorderLayout.CENTER);
 		scroll_content.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -156,7 +165,19 @@ public class EmailPane extends JDialog implements ActionListener {
 		
 		
 		
-		
+		remove.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				jp_aths.removeAll();
+				//jp_aths.invalidate();
+				EmailPane.this.setSize(width,510);
+				jp_aths.repaint();
+				attach.clear();
+			}
+			
+		});
 
 		
 		
@@ -175,10 +196,15 @@ public class EmailPane extends JDialog implements ActionListener {
 				password1.setText(null);
 				subject1.setText(null);
 				content.setText(null);
-				attachment1.setText(null);
+				jp_aths.removeAll();
+				//jp_aths.invalidate();
+				EmailPane.this.setSize(width,510);
+				jp_aths.repaint();
+				attach.clear();
+				//attachment1.setText(null);
 				
-				jp_attachment.remove(attachment1);
-	            jp_attachment.add(choose);
+				//jp_attachment.remove(attachment1);
+	            //jp_attachment.add(choose);
 	            jp_attachment.setVisible(false);
 	            jp_attachment.setVisible(true);
 				
@@ -229,18 +255,28 @@ public class EmailPane extends JDialog implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e){
+		//jfc.setMultiSelectionEnabled(true);
 			jfc.setFileSelectionMode(0);
 	        int state=jfc.showOpenDialog(null);
 	        if(state==1){
 	            return;
 	        }
 	        else{
+	        	
 	            File f=jfc.getSelectedFile();//f为选择到的目录
-	            attachment1.setText(f.getAbsolutePath());
-	            attachment1.setEditable(false);
-	            attach = f.getAbsolutePath();
-	            jp_attachment.remove(choose);
-	            jp_attachment.add(attachment1);
+	            MyJTextField ath = new MyJTextField(30);
+	            ath.setText(f.getAbsolutePath());
+	            ath.setEditable(false);
+	            attach.add(f.getAbsolutePath());
+	    		//EmailPane.this.invalidate();
+	            height = height+30;
+	            EmailPane.this.setSize(width,height);
+	            
+	            EmailPane.this.repaint();
+	            
+	            
+	            //jp_attachment.add(choose, BorderLayout.EAST);
+	            jp_aths.add(ath);
 	            jp_attachment.setVisible(false);
 	            jp_attachment.setVisible(true);
 	            
