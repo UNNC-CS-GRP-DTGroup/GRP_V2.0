@@ -19,6 +19,7 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.*;
 
 import cn.edu.nottingham.notetaking.csv.CsvBuilder;
+import cn.edu.nottingham.notetaking.mainFrame.MyFrame;
 import cn.edu.nottingham.notetaking.rightPart.util.EmailPane;
 
 /**
@@ -39,7 +40,8 @@ public class LeftPanel {
     String title;
     
 //    final MyTextPane tp;
-    JRichTextEditor jrte;
+//    JRichTextEditor jrte;
+    JPanel jWordPanel;
     
     TitledBorder tb;
     DefaultMutableTreeNode child, selected, root;
@@ -271,8 +273,11 @@ public class LeftPanel {
 	
 		// lefthand side second part - TextPane
 	//	tp = new MyTextPane();
-		jrte = new JRichTextEditor();
-		text.add(jrte, BorderLayout.SOUTH);
+//		jrte = new JRichTextEditor();
+//		text.add(jrte, BorderLayout.SOUTH);
+		jWordPanel = (JPanel) MyFrame.jWordCtrl.getFrame().getContentPane();
+		text.add(jWordPanel);
+		
 		
 	//	// respond hyperlink event in textpane
 	//	tp.addHyperlinkListener(new HyperlinkListener() {
@@ -310,18 +315,23 @@ public class LeftPanel {
 //	JPanel emailPanel = new JPanel();
 //	JButton btn1 = new JButton("EDIT");
 //	JButton btn2 = new JButton("LINK");
-	JButton emailButton = new JButton("Email");
-	emailButton.addActionListener(new ActionListener(){
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			dialog = new EmailPane();
-			dialog.setVisible(true);
-		}
-	});
+	
+		
+//	JButton emailButton = new JButton("Email");
+//	emailButton.addActionListener(new ActionListener(){
+//
+//		@Override
+//		public void actionPerformed(ActionEvent arg0) {
+//			// TODO Auto-generated method stub
+//			dialog = new EmailPane();
+//			dialog.setVisible(true);
+//		}
+//	});
+	
 //	emailPanel.add(emailButton);
-	text.add(emailButton, BorderLayout.NORTH);
+		
+//	text.add(emailButton, BorderLayout.NORTH);
+		
 	// start edit mode
 //	btn1.addMouseListener(new MouseAdapter() {
 //	    @Override
