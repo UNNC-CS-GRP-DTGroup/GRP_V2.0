@@ -102,15 +102,15 @@ public class GUIClient {
 //					e.printStackTrace();
 //				}
 				
-			    try
-			    {
-			        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-			        UIManager.put("RootPane.setupButtonVisible", false); // close "set up" button
-			    }
-			    catch(Exception e)
-			    {
-			        //TODO exception
-			    }
+//			    try
+//			    {
+//			        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//			        UIManager.put("RootPane.setupButtonVisible", false); // close "set up" button
+//			    }
+//			    catch(Exception e)
+//			    {
+//			        //TODO exception
+//			    }
 //			    
 			    // System.setProperty("sun.java2d.noddraw", "true");
 				new MyFrame();

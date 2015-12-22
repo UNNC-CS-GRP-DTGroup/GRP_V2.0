@@ -6,6 +6,9 @@ import javax.swing.*;
 
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
+import com.pilot.jword.ui.JWordController;
+import com.pilot.kahve.GuiException;
+
 import cn.edu.nottingham.notetaking.leftPart.LeftPanel;
 import cn.edu.nottingham.notetaking.rightPart.RightPane;
 
@@ -18,11 +21,22 @@ import cn.edu.nottingham.notetaking.rightPart.RightPane;
 public class MyFrame extends JFrame {
 //	JPanel outPanel;
 	JSplitPane splitPane;
+	JMenuBar menuBar;
+	public static JWordController jWordCtrl;
 	private static final long serialVersionUID = 66563949539476644L;
 
 	public MyFrame() {
 		super("NoteBook GUI");
 		
+		jWordCtrl = new JWordController();
+		try {
+			jWordCtrl.init(false);
+		} catch (GuiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		menuBar = jWordCtrl.getFrame().getJMenuBar();
+	
 		System.setProperty("sun.java2d.noddraw", "true");
 		
 //		outPanel = new JPanel();
@@ -44,6 +58,7 @@ public class MyFrame extends JFrame {
 		
 		setSize(1200, 650);
 		setVisible(true);
+		setJMenuBar(menuBar);
 		System.out.println("set to true");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
