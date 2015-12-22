@@ -41,7 +41,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	JPanel jp_subject = new JPanel(new FlowLayout());
 	JPanel jp_attachment = new JPanel(new FlowLayout());
 	JPanel jp_content = new JPanel(new BorderLayout());
-	JPanel jp_button = new JPanel(new GridLayout(1,2));
+	JPanel jp_button = new JPanel(new FlowLayout());
 	JPanel jp_aths = new JPanel();
 	
 	
@@ -54,10 +54,10 @@ public class EmailPane extends JDialog implements ActionListener {
 	JLabel username = new JLabel(" Username     ");
 	JLabel password = new JLabel(" Password     ");
 	JLabel from = new     JLabel(" From         ");
-	JLabel to = new JLabel      (" To           ");
-	JLabel cc = new JLabel      (" CC           ");
+	JLabel to = new JLabel      (" To                ");
+	JLabel cc = new JLabel      (" CC               ");
 	JLabel subject = new JLabel (" Subject      ");
-	JLabel attachment = new JLabel(" Attachment   ");
+	JLabel attachment = new JLabel("  Attach       ");
 	
 	MyJTextField smtp1 = new MyJTextField(30);
 	MyJTextField username1 = new MyJTextField(30);
@@ -67,7 +67,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	MyJTextField cc1 = new MyJTextField(30);
 	MyJTextField subject1 = new MyJTextField(30);
 	//MyJTextField attachment1 = new MyJTextField(30);
-	JTextArea content = new JTextArea(10,52);
+	JTextArea content = new JTextArea(10,37);
 	JScrollPane scroll_content = new JScrollPane(content);
 	
 
@@ -80,9 +80,9 @@ public class EmailPane extends JDialog implements ActionListener {
 	JFileChooser jfc;
 	
 	
-	private static int width = 450;
+	private static int width = 427;
 
-	private static int height = 545;
+	private static int height = 445;
 
 	private static int x = (int) Toolkit.getDefaultToolkit().getScreenSize()
 	.getWidth()
@@ -144,10 +144,10 @@ public class EmailPane extends JDialog implements ActionListener {
 		outPanel.add(jp_subject);
 		
 		jp_attachment.add(attachment);
-		choose.setPreferredSize(new Dimension(190, 20));
+		choose.setPreferredSize(new Dimension(160, 20));
 		jp_attachment.add(choose);
 		jp_attachment.add(Box.createHorizontalStrut(10));
-		remove.setPreferredSize(new Dimension(80,20));
+		remove.setPreferredSize(new Dimension(152,20));
 		jp_attachment.add(remove);
 		outPanel.add(jp_attachment);
 		
@@ -162,6 +162,7 @@ public class EmailPane extends JDialog implements ActionListener {
 		send.setPreferredSize(new Dimension(190,40));
 		clear.setPreferredSize(new Dimension(190,40));
 		jp_button.add(send);
+		jp_button.add(Box.createHorizontalStrut(10));
 		jp_button.add(clear);
 		outPanel.add(jp_button);
 		
@@ -175,8 +176,8 @@ public class EmailPane extends JDialog implements ActionListener {
 				// TODO Auto-generated method stub
 				jp_aths.removeAll();
 				//jp_aths.invalidate();
-				EmailPane.this.setSize(width,545);
-				initHeight(545);
+				EmailPane.this.setSize(width,445);
+				initHeight(445);
 				jp_aths.repaint();
 				attach.clear();
 			}
@@ -202,8 +203,8 @@ public class EmailPane extends JDialog implements ActionListener {
 				content.setText(null);
 				jp_aths.removeAll();
 				//jp_aths.invalidate();
-				EmailPane.this.setSize(width,545);
-				initHeight(545);
+				EmailPane.this.setSize(width,445);
+				initHeight(445);
 				jp_aths.repaint();
 				attach.clear();
 				//attachment1.setText(null);
@@ -279,7 +280,7 @@ public class EmailPane extends JDialog implements ActionListener {
 	            ath.setEditable(false);
 	            attach.add(f.getAbsolutePath());
 	    		//EmailPane.this.invalidate();
-	            height = height+30;
+	            height = height+28;
 	            EmailPane.this.setSize(width,height);
 	            
 	            EmailPane.this.repaint();
