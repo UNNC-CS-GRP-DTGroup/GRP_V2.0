@@ -19,7 +19,6 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.*;
 
 import cn.edu.nottingham.notetaking.csv.CsvBuilder;
-import cn.edu.nottingham.notetaking.rightPart.util.DictPane;
 import cn.edu.nottingham.notetaking.rightPart.util.EmailPane;
 
 /**
@@ -37,7 +36,7 @@ public class LeftPanel {
     JTextArea area;
     JTree tree;
     EmailPane dialog;
-    DictPane dict;
+    DictionaryFrame dict;
     String title;
     
 //    final MyTextPane tp;
@@ -328,7 +327,7 @@ public class LeftPanel {
 
 		public void actionPerformed(ActionEvent arg0) {
 			
-			dict = new DictPane();
+			dict = new DictionaryFrame();
 			dict.setVisible(true);
 		}
 	});

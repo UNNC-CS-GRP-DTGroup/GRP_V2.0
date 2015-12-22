@@ -1,4 +1,4 @@
-package cn.edu.nottingham.notetaking.rightPart.util;
+package cn.edu.nottingham.notetaking.leftPart;
 
 import java.awt.AWTEvent;
 import java.awt.AWTException;
@@ -32,12 +32,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-
-import cn.edu.nottingham.notetaking.rightPart.util.DictPane;
-
 import com.sun.awt.AWTUtilities;
 
-public class DictPane extends JFrame implements ActionListener{
+public class DictionaryFrame extends JFrame implements ActionListener{
  /**
 	 * 
 	 */
@@ -46,7 +43,7 @@ public class DictPane extends JFrame implements ActionListener{
   class RefBoolean {public boolean var = false;}
   class RefInt {public int var = 0;}
 
-  public DictPane() {
+  public DictionaryFrame() {
 	  try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");}
 	  catch (Exception e) { System.out.println(e); }
 	  
@@ -109,7 +106,7 @@ public class DictPane extends JFrame implements ActionListener{
 	    ti.addMouseListener(new MouseAdapter() { 
 	     public void mouseClicked(MouseEvent e) { 
 	      if (e.getClickCount() == 2) { 
-	    	  DictPane.this.setVisible(true);
+	    	  DictionaryFrame.this.setVisible(true);
 	      }
 	     }
 	    });
@@ -140,7 +137,7 @@ public class DictPane extends JFrame implements ActionListener{
 	     if(((KeyEvent) event).getKeyCode()==KeyEvent.VK_F4) {
 	      System.exit(0);
 	     }else if( ((KeyEvent) event).getKeyCode()==KeyEvent.VK_ESCAPE) {
-	    	 DictPane.this.setVisible(false);
+	    	 DictionaryFrame.this.setVisible(false);
 	      
 	      if(AWTUtilities.getWindowOpacity(jdmean)>0.1d) {
 	       double[] ds = {0.69, 0.59, 0.49, 0.45, 0.39, 0.35, 0.29, 0.25, 0.19, 0.1, 0.05, 0.0};
@@ -150,7 +147,7 @@ public class DictPane extends JFrame implements ActionListener{
 	       }
 	      }
 	     }  else if( ((KeyEvent) event).getKeyCode()==KeyEvent.VK_F1) {
-	    	 DictPane.this.setVisible(true);
+	    	 DictionaryFrame.this.setVisible(true);
 	      jtfWord.requestFocus();
 	     }  
 	    }
@@ -164,8 +161,8 @@ public class DictPane extends JFrame implements ActionListener{
 	   
 	   @Override
 	   public void mouseDragged(MouseEvent arg0) {
-	    int x = arg0.getX() + DictPane.this.getX();
-	    int y = arg0.getY() + DictPane.this.getY();
+	    int x = arg0.getX() + DictionaryFrame.this.getX();
+	    int y = arg0.getY() + DictionaryFrame.this.getY();
 	    
 	    if(isFirst.var) {
 	     oldX.var = x;
@@ -176,8 +173,8 @@ public class DictPane extends JFrame implements ActionListener{
 	    int detaX = x-oldX.var;
 	    int detaY = y-oldY.var;
 	    
-	    DictPane.this.setBounds(DictPane.this.getX()+detaX, DictPane.this.getY()+detaY, 260, 50);
-	    jdmean.setBounds(DictPane.this.getX()+detaX, DictPane.this.getY()+detaY+60, 260, 200);
+	    DictionaryFrame.this.setBounds(DictionaryFrame.this.getX()+detaX, DictionaryFrame.this.getY()+detaY, 260, 50);
+	    jdmean.setBounds(DictionaryFrame.this.getX()+detaX, DictionaryFrame.this.getY()+detaY+60, 260, 200);
 	    oldX.var = x;
 	    oldY.var = y;
 	   }
@@ -250,7 +247,7 @@ public class DictPane extends JFrame implements ActionListener{
 	      String url = "http://dict-co.iciba.com/api/dictionary.php?w=" + jtfWord.getText() + "&key=1F9CA812CB18FFDFC95FC17E9C57A5E1";
 	      
 	      
-	      VarByte vb = DictPane.getPage(url);
+	      VarByte vb = DictionaryFrame.getPage(url);
 	      String content = new String(vb.to_byte(), "utf-8");
 	
 	      String tagBegin = "<acceptation>";
