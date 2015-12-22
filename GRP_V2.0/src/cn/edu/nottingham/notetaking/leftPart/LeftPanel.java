@@ -43,6 +43,7 @@ public class LeftPanel {
 //    final MyTextPane tp;
 //    JRichTextEditor jrte;
     JPanel jWordPanel;
+    JScrollPane scrollPane;
     
     TitledBorder tb;
     DefaultMutableTreeNode child, selected, root;
@@ -63,18 +64,18 @@ public class LeftPanel {
 
 		// leftside layout, and it is devided into two parts.
 		leftside.setLayout(new BorderLayout());
-		JPanel books = new JPanel();
+//		JPanel books = new JPanel();
 		JPanel text = new JPanel();
-		leftside.add(books, BorderLayout.WEST);
+//		leftside.add(books, BorderLayout.WEST);
 		leftside.add(text, BorderLayout.CENTER);
 	
 		// lefthand side First part - catalogue tree
-		books.setPreferredSize(new Dimension(200, 500));
+//		books.setPreferredSize(new Dimension(200, 500));
 	
 		// set layout of part 1.
 		JPanel addAndDel = new JPanel();
 		JPanel sort = new JPanel();
-		books.setLayout(new BorderLayout());
+//		books.setLayout(new BorderLayout());
 	
 		// set root directory of the catalogue tree
 		root = new DefaultMutableTreeNode("NoteBooks");
@@ -97,10 +98,10 @@ public class LeftPanel {
 		// set the vertical scrollbar always visible
 		sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	
-		// add components to the part1
-		books.add(addAndDel, BorderLayout.NORTH);
-		books.add(sp, BorderLayout.CENTER);
-		books.add(sort, BorderLayout.SOUTH);
+//		// add components to the part1
+//		books.add(addAndDel, BorderLayout.NORTH);
+//		books.add(sp, BorderLayout.CENTER);
+//		books.add(sort, BorderLayout.SOUTH);
 	
 		// add and delete button above the tree - addAndDel
 		add = new JButton("+");
@@ -277,7 +278,9 @@ public class LeftPanel {
 //		jrte = new JRichTextEditor();
 //		text.add(jrte, BorderLayout.SOUTH);
 		jWordPanel = (JPanel) MyFrame.jWordCtrl.getFrame().getContentPane();
-		text.add(jWordPanel);
+		scrollPane = new JScrollPane(jWordPanel);
+//		scrollPane.add(jWordPanel);
+		text.add(scrollPane);
 		
 		
 	//	// respond hyperlink event in textpane
@@ -317,29 +320,29 @@ public class LeftPanel {
 //	JButton btn1 = new JButton("EDIT");
 //	JButton btn2 = new JButton("LINK");
 
-	JButton emailButton = new JButton("Email");
-	emailButton.addActionListener(new ActionListener(){
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			dialog = new EmailPane();
-			dialog.setVisible(true);
-		}
-	});
+//	JButton emailButton = new JButton("Email");
+//	emailButton.addActionListener(new ActionListener(){
+//
+//		@Override
+//		public void actionPerformed(ActionEvent arg0) {
+//			// TODO Auto-generated method stub
+//			dialog = new EmailPane();
+//			dialog.setVisible(true);
+//		}
+//	});
 	
-	JButton dictButton = new JButton("Dictionary");
-	dictButton.addActionListener(new ActionListener(){
+//	JButton dictButton = new JButton("Dictionary");
+//	dictButton.addActionListener(new ActionListener(){
+//
+//		public void actionPerformed(ActionEvent arg0) {
+//			
+//			dict = new DictionaryFrame();
+//			dict.setVisible(true);
+//		}
+//	});
 
-		public void actionPerformed(ActionEvent arg0) {
-			
-			dict = new DictionaryFrame();
-			dict.setVisible(true);
-		}
-	});
-
-	text.add(emailButton, BorderLayout.NORTH);
-	text.add(dictButton, BorderLayout.NORTH);
+//	text.add(emailButton, BorderLayout.NORTH);
+//	text.add(dictButton, BorderLayout.NORTH);
 
 	// start edit mode
 //	btn1.addMouseListener(new MouseAdapter() {
