@@ -11,10 +11,13 @@ import com.pilot.kahve.GuiException;
 
 public class JWordClient {
 	public static void main(String[] args) {
-		try
-		{
 		JWordController ctrl=new JWordController();
-		ctrl.init(false);
+		try {
+			ctrl.init(false);
+		} catch (GuiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//ctrl.setShowRuler(false);
 		//ctrl.setShowToolbar1(false);
 		//ctrl.setShowToolbar2(false);
@@ -24,19 +27,6 @@ public class JWordClient {
 		ctrl.getEditor().requestFocus();
 		System.out.println(ctrl.getFrame().getJMenuBar().getMenu(0).getItem(3));
 		(ctrl.getFrame().getJMenuBar().getMenu(0)).add(new JMenuItem("Export as pdf"));
-		ctrl.getEditor().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		}
-		}
-		catch (GuiException e) {
-		         e.printStackTrace();
-		}
 	}
 
 }
